@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.fenlonsky.campaign</groupId>
+	<artifactId>campaign_o2o</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>campaign_o2o</name>
+	<description>this is a platform for o2o campaign !</description>
+	<packaging>pom</packaging>
+	<modules>
+		<module>campaign_qrcode</module>
+	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.version>0.0.1-SNAPSHOT</project.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>mbay-saizhi</id>
+			<name>mbay-saizhi</name>
+			<url>http://192.168.21.148:8081/nexus/content/repositories/snapshots/</url>
+		</repository>
+		<repository>
+			<id>spring.io</id>
+			<name>spring.io</name>
+			<url>http://repo.spring.io/repo/</url>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Internal Releases</name>
+			<url>http://192.168.21.148:8081/nexus/content/repositories/releases/</url>
+		</repository>
+
+		<snapshotRepository>
+			<id>Snapshots</id>
+			<name>Internal Snapshots</name>
+			<url>http://192.168.21.148:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>
