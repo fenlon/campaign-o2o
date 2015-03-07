@@ -31,6 +31,12 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<!--google zxing 二维码配置 -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.1.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>campaign_qrcode</finalName>
