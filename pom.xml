@@ -20,6 +20,10 @@
 		<log4j.version>1.2.17</log4j.version>
 		<slf4j.version>1.7.6</slf4j.version>
 
+		<!-- Spring Config -->
+		<spring.version>4.1.1.RELEASE</spring.version>
+		<!-- Mybatis Config -->
+		<mybatis.version>3.2.8</mybatis.version>
 	</properties>
 
 	<dependencies>
