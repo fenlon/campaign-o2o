@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.fenlonsky.campaign.qrcode.entity.QRCode;
 import com.fenlonsky.campaign.qrcode.util.QRCodeUtil;
 
 @Controller
@@ -30,14 +31,47 @@ public class QRCodeController {
 	 * 
 	 * @param content
 	 */
+	/*
+	 * @RequestMapping(value = "get", method = RequestMethod.GET)
+	 * public void generate(String content, Integer width, HttpServletResponse
+	 * response) {
+	 * byte[] data = QRCodeUtil.getQRCodeBytes(content, width, width);
+	 * Map<String, String> map = new HashMap<String, String>();
+	 * map.put("Content-Disposition", "filename=" + content + "."
+	 * + QRCodeUtil_ERROR.QRCODE_FILETYPE);
+	 * writePic(data, response, map);
+	 * }
+	 */
+	
+	/**
+	 * 生成兑换码二维码
+	 * 
+	 * @param content
+	 */
 	@RequestMapping(value = "get", method = RequestMethod.GET)
-	public void generate(String content, HttpServletResponse response) {
-		byte[] data = QRCodeUtil.getQRCodeBytes(content, null, null);
+	public void generate(QRCode code, HttpServletResponse response) {
+		byte[] data = QRCodeUtil.getQRCodeBytes(code);
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("Content-Disposition", "filename=" + content + "."
+		map.put("Content-Disposition", "filename=" + code + "."
 				+ QRCodeUtil.QRCODE_FILETYPE);
 		writePic(data, response, map);
 	}
+	
+	/**
+	 * 生成兑换码二维码
+	 * 
+	 * @param content
+	 */
+	/*
+	 * @RequestMapping(value = "get", method = RequestMethod.GET)
+	 * public void generate(String content, HttpServletResponse response) {
+	 * byte[] data = QRCodeUtil_ERROR.getQRCodeBytes(content, null, null);
+	 * Map<String, String> map = new HashMap<String, String>();
+	 * map.put("Content-Disposition", "filename=" + content + "."
+	 * + QRCodeUtil_ERROR.QRCODE_FILETYPE);
+	 * writePic(data, response, map);
+	 * }
+	 */
 	
 	/**
 	 * 文件流写出
