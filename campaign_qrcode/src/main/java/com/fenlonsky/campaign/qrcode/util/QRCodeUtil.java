@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fenlonsky.campaign.qrcode.entity.QRCode;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Binarizer;
 import com.google.zxing.BinaryBitmap;
@@ -32,34 +33,21 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 public class QRCodeUtil {
 	
-	public static final int WIDTH = 300;
-	public static final int HEIGHT = 300;
+	public static final int DEFAULT_WIDTH = 300;
+	public static final int DEFAULT_HEIGHT = 300;
+	public static final ErrorCorrectionLevel DEFAULT_ERROR_RATE = ErrorCorrectionLevel.L;
+	public static final int DEFAULT_BACK_GROUND_COLOR = 0xFF000000;
+	public static final int DEFAULT_FORE_GROUND_COLOR = 0xFF000000;
 	// public static final int LOGO_SIZE = 60;
 	public static final String QRCODE_FILETYPE = "jpg";
 	public static final int BUFFER_SIZE = 1024 * 6;
 	
 	static final Logger logger = LoggerFactory.getLogger(QRCodeUtil.class);
 	
-	/**
-	 * 得到二维码图片，并保存到给出的路径
-	 * 
-	 * @param content
-	 *            编码内容
-	 * @param qrCodePath
-	 *            二维码保存路径
-	 * @throws IOException
-	 */
-	public static void generateQRCode(String content, String qrCodePath, Integer width, Integer height)
+	public static void generateQRCode(String qrCodePath, QRCode code)
 			throws IOException {
-		if (width == null) {
-			width = WIDTH;
-		}
-		if (height == null) {
-			height = HEIGHT;
-		}
 		// 得到二维码图片的bufferImage
-		BufferedImage bim = getQR_CODEBufferedImage(content,
-				BarcodeFormat.QR_CODE, width, height, getDecodeHintType());
+		BufferedImage bim = getQR_CODEBufferedImage(BarcodeFormat.QR_CODE, code);
 		if (bim == null) {
 			return;
 		}
@@ -71,32 +59,12 @@ public class QRCodeUtil {
 		ImageIO.write(bim, "jpeg", file);
 	}
 	
-	/**
-	 * 得到带有logo图片的二维码图片，并写到给出的路径
-	 * 
-	 * @param content
-	 *            编码内容
-	 * @param qrCodePath
-	 *            二维码保存路径
-	 * @param logoPath
-	 *            logo 路径
-	 * @throws IOException
-	 * @throws InterruptedException
-	 */
-	public static void generateQRCodeWithLogo(String content,
-			String qrCodePath, String logoPath, Integer width, Integer height) throws IOException,
+	public static void generateQRCodeWithLogo(String qrCodePath, String logoPath, QRCode code) throws IOException,
 			InterruptedException {
 		
-		if (width == null) {
-			width = WIDTH;
-		}
-		if (height == null) {
-			height = HEIGHT;
-		}
-		
 		// 得到二维码图片的bufferImage
-		BufferedImage bim = getQR_CODEBufferedImage(content,
-				BarcodeFormat.QR_CODE, width, height, getDecodeHintType());
+		BufferedImage bim = getQR_CODEBufferedImage(BarcodeFormat.QR_CODE, code);
+		
 		if (bim == null) {
 			return;
 		}
@@ -119,16 +87,10 @@ public class QRCodeUtil {
 	 *            logo的路径
 	 * @return
 	 */
-	public static byte[] getQRCodeBytes(String content, String logoPath, Integer width, Integer height) {
-		if (width == null) {
-			width = WIDTH;
-		}
-		if (height == null) {
-			height = HEIGHT;
-		}
+	public static byte[] getQRCodeBytes(String logoPath, QRCode code) {
+		
 		// 得到二维码图片的bufferImage
-		BufferedImage bim = getQR_CODEBufferedImage(content,
-				BarcodeFormat.QR_CODE, width, height, getDecodeHintType());
+		BufferedImage bim = getQR_CODEBufferedImage(BarcodeFormat.QR_CODE, code);
 		if (bim == null) {
 			return null;
 		}
@@ -143,16 +105,10 @@ public class QRCodeUtil {
 		return bos.toByteArray();
 	}
 	
-	public static byte[] getQRCodeBytes(String content, Integer width, Integer height) {
-		if (width == null) {
-			width = WIDTH;
-		}
-		if (height == null) {
-			height = HEIGHT;
-		}
+	public static byte[] getQRCodeBytes(QRCode code) {
+		
 		// 得到二维码图片的bufferImage
-		BufferedImage bim = getQR_CODEBufferedImage(content,
-				BarcodeFormat.QR_CODE, width, height, getDecodeHintType());
+		BufferedImage bim = getQR_CODEBufferedImage(BarcodeFormat.QR_CODE, code);
 		if (bim == null) {
 			return null;
 		}
@@ -165,38 +121,22 @@ public class QRCodeUtil {
 		return bos.toByteArray();
 	}
 	
-	/**
-	 * 生成二维码bufferedImage图片
-	 * 
-	 * @param content
-	 *            编码内容
-	 * @param barcodeFormat
-	 *            编码类型
-	 * @param width
-	 *            图片宽度
-	 * @param height
-	 *            图片高度
-	 * @param hints
-	 *            设置参数
-	 * @return
-	 */
-	private static BufferedImage getQR_CODEBufferedImage(String content,
-			BarcodeFormat barcodeFormat, int width, int height,
-			Map<EncodeHintType, ?> hints) {
+	private static BufferedImage getQR_CODEBufferedImage(BarcodeFormat barcodeFormat, QRCode code) {
 		MultiFormatWriter multiFormatWriter = null;
 		BitMatrix bm = null;
 		BufferedImage image = null;
 		try {
 			multiFormatWriter = new MultiFormatWriter();
+			Map<EncodeHintType, Object> hints = getDecodeHintType(code.getCorrectionLevel());
 			// 参数分别为：编码內容，编码类型，生成图片宽度，生成图片高度，设置参数
-			bm = multiFormatWriter.encode(content, barcodeFormat, width,
-					height, hints);
-			image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+			bm = multiFormatWriter.encode(code.getContent(), barcodeFormat, code.getSize(),
+					code.getSize(), hints);
+			image = new BufferedImage(code.getSize(), code.getSize(), BufferedImage.TYPE_INT_RGB);
 			
 			// 开始利用二维码数据创建爱你Bitmap图片，分别设为黑（0xFFFFFFFF）白（0xFF000000）两色
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height; y++) {
-					image.setRGB(x, y, bm.get(x, y) ? 0xFF000000 : 0xFFCCDDEE);
+			for (int x = 0; x < code.getSize(); x++) {
+				for (int y = 0; y < code.getSize(); y++) {
+					image.setRGB(x, y, bm.get(x, y) ? code.getBackGroundColor() : code.getForegroundColor());
 				}
 			}
 		} catch (WriterException e) {
@@ -210,15 +150,15 @@ public class QRCodeUtil {
 	 * 
 	 * @return
 	 */
-	private static Map<EncodeHintType, Object> getDecodeHintType() {
+	private static Map<EncodeHintType, Object> getDecodeHintType(ErrorCorrectionLevel correctionLevel) {
 		// 用于设置QR二维码参数
 		Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();
 		// 设置QR二维码的纠错级别（H为最该级别），具体级别信息
-		hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
+		hints.put(EncodeHintType.ERROR_CORRECTION, correctionLevel);
 		// 設置編碼方式
 		hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
-		hints.put(EncodeHintType.MAX_SIZE, 350);
-		hints.put(EncodeHintType.MIN_SIZE, 100);
+		// hints.put(EncodeHintType.MAX_SIZE, 350);
+		// hints.put(EncodeHintType.MIN_SIZE, 100);
 		hints.put(EncodeHintType.MARGIN, 1);
 		return hints;
 	}
@@ -279,7 +219,6 @@ public class QRCodeUtil {
 		try {
 			MultiFormatReader formatReader = new MultiFormatReader();
 			
-			// File file = new File(filePath);
 			if (!file.exists()) {
 				return;
 			}
