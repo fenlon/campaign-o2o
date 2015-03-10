@@ -39,6 +39,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>campaign_qrcode</finalName>
+		<finalName>$\{project.artifactId}-$\{project.version}-r$\{buildNumber}</finalName>
 	</build>
 </project>
