@@ -12,4 +12,5 @@ public class MainController {
 	public String index() {
 		return "/qrcode/main/index";
 	}
+	
 }

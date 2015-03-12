@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>QRCode 首页</title>
 
 <script type="text/javascript">
@@ -110,7 +110,8 @@
 				<div class="col-xs-8">
 					<button type="button" class="btn btn-primary btn-lg btn-block"
 						ng-click="generateCode(qrcode.content)">生成二维码</button>
-					<button type="button" class="btn btn-primary btn-lg btn-block">下载二维码</button>
+					<button type="button" class="btn btn-primary btn-lg btn-block"
+						ng-click="downloadCode()">下载二维码</button>
 					<button type="button" class="btn btn-primary btn-lg btn-block">其他</button>
 				</div>
 				<div class="col-xs-4">
@@ -139,14 +140,12 @@
 							<tr>
 								<td>前景色</td>
 								<td><input type="text" name="foregroundColor"
-									placeholder="{{qrcode.foregroundColor}}"
-									ng-model="qrcode.foregroundColor"><span>{{qrcode.foregroundColor}}</span></td>
+									placeholder="{{fore}}" ng-model="fore"><span>{{fore}}</span></td>
 							</tr>
 							<tr>
 								<td>背景色</td>
 								<td><input type="text" name="backgroundColor"
-									placeholder="{{qrcode.backgroundColor}}"
-									ng-model="qrcode.backgroundColor"><span>{{qrcode.backgroundColor}}</span></td>
+									placeholder="{{back}}" ng-model="back"><span>{{back}}</span></td>
 							</tr>
 							<tr>
 								<td>logo路径</td>

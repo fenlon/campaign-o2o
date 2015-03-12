@@ -131,35 +131,17 @@
 					</executions>
 				</plugin>
 
-				<plugin>
-					<!-- The Eclipse Plugin is used to generate Eclipse IDE files (*.classpath, 
-						*.wtpmodules and the .settings folder) for use with a project. -->
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-eclipse-plugin</artifactId>
-					<configuration>
-						<sourceExcludes>
-							<sourceExclude>**/.svn/**</sourceExclude>
-						</sourceExcludes>
-						<downloadSources>true</downloadSources>
-						<useProjectReferences>false</useProjectReferences>
-						<outputDirectory>classes</outputDirectory>
-						<workspace>${basedir}</workspace>
-						<workspaceCodeStylesURL>http://svn.apache.org/repos/asf/maven/plugins/trunk/maven-eclipse-plugin/src/optional/eclipse-config/maven-styles.xml</workspaceCodeStylesURL>
-						<additionalProjectnatures>
-							<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-						</additionalProjectnatures>
-						<additionalBuildcommands>
-							<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
-						</additionalBuildcommands>
-						<additionalConfig>
-							<file>
-								<name>.settings/org.eclipse.core.resources.prefs</name>
-								<content> <![CDATA[eclipse.preferences.version=1${line.separator}encoding/<project>=${app.encoding}${line.separator}]]>
-								</content>
-							</file>
-						</additionalConfig>
-					</configuration>
-				</plugin>
+	<!-- <plugin> The Eclipse Plugin is used to generate Eclipse IDE files (*.classpath, 
+		*.wtpmodules and the .settings folder) for use with a project. <groupId>org.apache.maven.plugins</groupId> 
+		<artifactId>maven-eclipse-plugin</artifactId> <configuration> <sourceExcludes> 
+		<sourceExclude>**/.svn/**</sourceExclude> </sourceExcludes> <downloadSources>true</downloadSources> 
+		<useProjectReferences>false</useProjectReferences> <outputDirectory>classes</outputDirectory> 
+		<workspace>${basedir}</workspace> <workspaceCodeStylesURL>http://svn.apache.org/repos/asf/maven/plugins/trunk/maven-eclipse-plugin/src/optional/eclipse-config/maven-styles.xml</workspaceCodeStylesURL> 
+		<additionalProjectnatures> <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature> 
+		</additionalProjectnatures> <additionalBuildcommands> <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand> 
+		</additionalBuildcommands> <additionalConfig> <file> <name>.settings/org.eclipse.core.resources.prefs</name> 
+		<content> <![CDATA[eclipse.preferences.version=1${line.separator}encoding/<project>=${app.encoding}${line.separator}]]> 
+		</content> </file> </additionalConfig> </configuration> </plugin> -->
 
 
 				<plugin>

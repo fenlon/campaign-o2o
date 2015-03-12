@@ -84,7 +84,7 @@
 		<property name="exceptionMappings">
 			<props>
 				<prop key="java.lang.Exception">/WEB-INF/pages/commons/error</prop>
-				<prop key="java.lang.RuntimeException">/WEB-INF/pages/commons/error</prop>
+				<prop key="java.lang.RuntimeException">commons/error</prop>
 			</props>
 		</property>
 	</bean>
