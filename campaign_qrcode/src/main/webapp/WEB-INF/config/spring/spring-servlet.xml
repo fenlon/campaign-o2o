@@ -77,11 +77,17 @@
 		p:basename="i18n/messages" />
 
 	<!-- Mapping exception to the handler view -->
-	<!-- <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> 
-		to /commons/error.jsp <property name="defaultErrorView" value="/WEB-INF/pages/commons/error" 
-		/> <property name="exceptionMappings"> <props> <prop key="java.lang.Exception">/WEB-INF/pages/commons/error</prop> 
-		<prop key="java.lang.RuntimeException">/WEB-INF/pages/commons/error</prop> 
-		</props> </property> </bean> -->
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	<!-- to /commons/error.jsp -->
+		<property name="defaultErrorView" value="/WEB-INF/pages/commons/error" />
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">/WEB-INF/pages/commons/error</prop>
+				<prop key="java.lang.RuntimeException">/WEB-INF/pages/commons/error</prop>
+			</props>
+		</property>
+	</bean>
 	<!-- 支持上传文件 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />

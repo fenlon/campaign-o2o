@@ -3,7 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>QRCode 首页</title>
 
 <script type="text/javascript">
@@ -100,7 +102,7 @@
 				<div class="col-xs-4">
 					<div class="code">
 						<img ng-show="show" alt="qrcode" width="200px" height="200px"
-							ng-srcset="{{codeUrl}}"> <span ng-hide="show">左侧输入内容，点击生成二维码</span>
+							ng-src="{{codeUrl}}"> <span ng-hide="show">左侧输入内容，点击生成二维码</span>
 					</div>
 				</div>
 			</div>
@@ -133,6 +135,23 @@
 								<td>图案大小</td>
 								<td><input type="text" name="size" placeholder="size"
 									ng-model="qrcode.size"><span>{{qrcode.size}}px</span></td>
+							</tr>
+							<tr>
+								<td>前景色</td>
+								<td><input type="text" name="foregroundColor"
+									placeholder="{{qrcode.foregroundColor}}"
+									ng-model="qrcode.foregroundColor"><span>{{qrcode.foregroundColor}}</span></td>
+							</tr>
+							<tr>
+								<td>背景色</td>
+								<td><input type="text" name="backgroundColor"
+									placeholder="{{qrcode.backgroundColor}}"
+									ng-model="qrcode.backgroundColor"><span>{{qrcode.backgroundColor}}</span></td>
+							</tr>
+							<tr>
+								<td>logo路径</td>
+								<td><input type="text" name="logoUrl"
+									placeholder="{{qrcode.logoUrl}}" ng-model="qrcode.logoUrl"><span>{{qrcode.logoUrl}}</span></td>
 							</tr>
 						</table>
 					</div>

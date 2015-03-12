@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -50,6 +51,11 @@ public class QRCodeController {
 	 */
 	@RequestMapping(value = "get", method = RequestMethod.GET)
 	public void generate(QRCode code, HttpServletResponse response) {
+		try {
+			code.setContent(new String(code.getContent().getBytes("iso8859-1"), "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		byte[] data = QRCodeUtil.getQRCodeBytes(code);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("Content-Disposition", "filename=" + code + "."

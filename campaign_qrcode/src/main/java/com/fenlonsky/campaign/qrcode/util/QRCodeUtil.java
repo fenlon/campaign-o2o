@@ -32,18 +32,18 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 public class QRCodeUtil {
-
+	
 	public static final int DEFAULT_WIDTH = 300;
 	public static final int DEFAULT_HEIGHT = 300;
 	public static final ErrorCorrectionLevel DEFAULT_ERROR_RATE = ErrorCorrectionLevel.L;
 	public static final int DEFAULT_BACK_GROUND_COLOR = 0xFF000000;
-	public static final int DEFAULT_FORE_GROUND_COLOR = 0xFF000000;
+	public static final int DEFAULT_FORE_GROUND_COLOR = 0xFFFFFFFF;
 	// public static final int LOGO_SIZE = 60;
 	public static final String QRCODE_FILETYPE = "jpg";
 	public static final int BUFFER_SIZE = 1024 * 6;
-
+	
 	static final Logger logger = LoggerFactory.getLogger(QRCodeUtil.class);
-
+	
 	public static void generateQRCode(String qrCodePath, QRCode code)
 			throws IOException {
 		// 得到二维码图片的bufferImage
@@ -58,14 +58,14 @@ public class QRCodeUtil {
 		}
 		ImageIO.write(bim, "jpeg", file);
 	}
-
+	
 	public static void generateQRCodeWithLogo(String qrCodePath,
 			String logoPath, QRCode code) throws IOException,
 			InterruptedException {
-
+		
 		// 得到二维码图片的bufferImage
 		BufferedImage bim = getQR_CODEBufferedImage(BarcodeFormat.QR_CODE, code);
-
+		
 		if (bim == null) {
 			return;
 		}
@@ -78,7 +78,7 @@ public class QRCodeUtil {
 		}
 		ImageIO.write(bim, "jpeg", qrCode);
 	}
-
+	
 	/**
 	 * 得到带有logo的二维码图片字节数组
 	 * 
@@ -89,7 +89,7 @@ public class QRCodeUtil {
 	 * @return
 	 */
 	public static byte[] getQRCodeBytes(String logoPath, QRCode code) {
-
+		
 		// 得到二维码图片的bufferImage
 		BufferedImage bim = getQR_CODEBufferedImage(BarcodeFormat.QR_CODE, code);
 		if (bim == null) {
@@ -105,9 +105,9 @@ public class QRCodeUtil {
 		}
 		return bos.toByteArray();
 	}
-
+	
 	public static byte[] getQRCodeBytes(QRCode code) {
-
+		
 		// 得到二维码图片的bufferImage
 		BufferedImage bim = getQR_CODEBufferedImage(BarcodeFormat.QR_CODE, code);
 		if (bim == null) {
@@ -121,7 +121,7 @@ public class QRCodeUtil {
 		}
 		return bos.toByteArray();
 	}
-
+	
 	private static BufferedImage getQR_CODEBufferedImage(
 			BarcodeFormat barcodeFormat, QRCode code) {
 		MultiFormatWriter multiFormatWriter = null;
@@ -136,7 +136,7 @@ public class QRCodeUtil {
 					code.getSize(), code.getSize(), hints);
 			image = new BufferedImage(code.getSize(), code.getSize(),
 					BufferedImage.TYPE_INT_RGB);
-
+			
 			// 开始利用二维码数据创建爱你Bitmap图片，分别设为黑（0xFFFFFFFF）白（0xFF000000）两色
 			for (int x = 0; x < code.getSize(); x++) {
 				for (int y = 0; y < code.getSize(); y++) {
@@ -149,7 +149,7 @@ public class QRCodeUtil {
 		}
 		return image;
 	}
-
+	
 	/**
 	 * 设置二维码的格式参数
 	 * 
@@ -168,7 +168,7 @@ public class QRCodeUtil {
 		hints.put(EncodeHintType.MARGIN, 1);
 		return hints;
 	}
-
+	
 	/**
 	 * 给二维码图片添加Logo
 	 * 
@@ -195,13 +195,13 @@ public class QRCodeUtil {
 			BufferedImage logo = ImageIO.read(logoPic);
 			// 同比例重置图片大小（依据logo设置的大小）
 			// logo = resetImageSize(logo, WIDTH/ LogoConfig.DEFAULT_LOGOPART);
-
+			
 			int widthLogo = logo.getWidth(), heightLogo = logo.getHeight();
-
+			
 			// 计算图片放置位置
 			int x = (qrCodeImg.getWidth() - widthLogo) / 2;
 			int y = (qrCodeImg.getHeight() - logo.getHeight()) / 2;
-
+			
 			// 开始绘制图片
 			g.drawImage(logo, x, y, widthLogo, heightLogo, null);
 			g.drawRoundRect(x, y, widthLogo, heightLogo, 15, 15);
@@ -215,7 +215,7 @@ public class QRCodeUtil {
 		}
 		return qrCodeImg;
 	}
-
+	
 	/**
 	 * 二维码的解析
 	 * 
@@ -224,22 +224,22 @@ public class QRCodeUtil {
 	public static void parseQR_CODEImage(File file) {
 		try {
 			MultiFormatReader formatReader = new MultiFormatReader();
-
+			
 			if (!file.exists()) {
 				return;
 			}
-
+			
 			BufferedImage image = ImageIO.read(file);
-
+			
 			LuminanceSource source = new BufferedImageLuminanceSource(image);
 			Binarizer binarizer = new HybridBinarizer(source);
 			BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);
-
+			
 			Map<DecodeHintType, Object> hints = new HashMap<DecodeHintType, Object>();
 			hints.put(DecodeHintType.CHARACTER_SET, "UTF-8");
-
+			
 			Result result = formatReader.decode(binaryBitmap, hints);
-
+			
 			System.out.println("result = " + result.toString());
 			System.out.println("resultFormat = " + result.getBarcodeFormat());
 			System.out.println("resultText = " + result.getText());
@@ -247,7 +247,7 @@ public class QRCodeUtil {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * 重置图片大小（因为logo图片不能太大，太大的话容易挡住二维码重要信息，以至于无法识别）
 	 * 
@@ -267,7 +267,7 @@ public class QRCodeUtil {
 		int newHeight = size;
 		BufferedImage image = new BufferedImage(newWidth, newHeight,
 				BufferedImage.TYPE_INT_BGR);
-
+		
 		Graphics g = null;
 		g = image.createGraphics();
 		g.drawImage(imagesrc, 0, 0, newWidth, newHeight, null);
