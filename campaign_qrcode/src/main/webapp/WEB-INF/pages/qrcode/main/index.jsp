@@ -19,6 +19,16 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/js/qrcode/index.js"></script>
 <style type="text/css">
+/* body {
+	font-family: "helvetica neue", helvetica, arial, "Hiragino Sans GB",
+		"Hiragino Sans GB W3", "Microsoft Yahei", "SimHei", Sans-serif;
+} */
+
+/* table {
+	border-color: gray;
+	border-collapse: collapse;
+	border-spacing: 0;
+} */
 .row textarea {
 	outline: 0;
 	resize: none;
@@ -45,6 +55,11 @@
 
 .hide {
 	display: none;
+}
+
+.progress-bar {
+	background: gray;
+	height: 10px;
 }
 </style>
 </head>
@@ -79,7 +94,7 @@
 			<div class="row">
 				<div class="col-xs-8">
 					<textarea class="form-control" placeholder="请输入文字内容，支持普通文本和网址！"
-						ng-model="content">
+						ng-model="qrcode.content">
 					</textarea>
 				</div>
 				<div class="col-xs-4">
@@ -92,11 +107,36 @@
 			<div class="row">
 				<div class="col-xs-8">
 					<button type="button" class="btn btn-primary btn-lg btn-block"
-						ng-click="generateCode(content)">生成二维码</button>
+						ng-click="generateCode(qrcode.content)">生成二维码</button>
 					<button type="button" class="btn btn-primary btn-lg btn-block">下载二维码</button>
 					<button type="button" class="btn btn-primary btn-lg btn-block">其他</button>
 				</div>
-				<div class="col-xs-4"></div>
+				<div class="col-xs-4">
+					<div style="border: 1px solid red;">
+						<table class="table">
+							<tr>
+								<td>容错:</td>
+								<td id="level"><label style="background-position: 0px 2px;"><input
+										type="radio" name="errorLevel" value="L"
+										ng-model="qrcode.errorLevel" hidefocus="">7%</label><label
+									style="background-position: 0px 2px;"><input
+										type="radio" name="errorLevel" value="M"
+										ng-model="qrcode.errorLevel" hidefocus="">15%</label><label
+									style="background-position: 0px 2px;"><input
+										type="radio" name="errorLevel" value="Q"
+										ng-model="qrcode.errorLevel" hidefocus="">25%</label><label
+									class="first" style="background-position: 0px -26px;"><input
+										type="radio" name="errorLevel" value="H"
+										ng-model="qrcode.errorLevel" hidefocus="">30%</label></td>
+							</tr>
+							<tr>
+								<td>图案大小</td>
+								<td><input type="text" name="size" placeholder="size"
+									ng-model="qrcode.size"><span>{{qrcode.size}}px</span></td>
+							</tr>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
