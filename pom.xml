@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.fenlonsky.campaign</groupId>
 	<artifactId>campaign_o2o</artifactId>
@@ -10,7 +9,8 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>campaign_qrcode</module>
-	</modules>
+    <module>campaign-base</module>
+  </modules>
 
 	<properties>
 		<app.encoding>UTF-8</app.encoding>
@@ -122,7 +122,7 @@
 					<executions>
 						<execution>
 							<id>attach-sources</id>
-							<!-- 什么阶段打包源码 -->
+							<!-- �?��阶段打包源码 -->
 							<phase>package</phase>
 							<goals>
 								<goal>jar-no-fork</goal>
@@ -163,7 +163,7 @@
 				</plugin>
 
 				<plugin>
-					<!-- 按着规则生成版本号 -->
+					<!-- 按着规则生成版本�?-->
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>buildnumber-maven-plugin</artifactId>
 					<version>1.3</version>
