@@ -3,7 +3,7 @@ package com.fenlonsky.campaign.base.service;
 import java.io.Serializable;
 import java.util.List;
 
-import edu.zut.cs.nlp.base.model.BaseTreeEntityModel;
+import com.fenlonsky.campaign.base.model.BaseTreeEntityModel;
 
 /**
  * Generic Manager that talks to GenericDao to CRUD POJOs.
