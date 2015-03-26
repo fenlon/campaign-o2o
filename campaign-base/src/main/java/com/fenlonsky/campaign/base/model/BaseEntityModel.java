@@ -1,37 +1,76 @@
 package com.fenlonsky.campaign.base.model;
 
-import java.util.Date;
-
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.joda.time.DateTime;
 
 public class BaseEntityModel extends BaseModel {
-
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6163675075289529459L;
-
+	
 	String entityName;
-
+	
 	/**
 	 * 实体创建时间
 	 */
-	protected Date dateCreated = new Date();
-
+	protected DateTime dateCreated = DateTime.now();
+	
 	/**
 	 * 实体修改时间
 	 */
-	protected Date dateModified = new Date();
-
+	protected DateTime dateModified = DateTime.now();
+	
 	/**
 	 * 实体是否被删除
 	 */
 	protected Boolean deleted = false;
-
+	
 	Long id;
-
+	
+	public String getEntityName() {
+		return entityName;
+	}
+	
+	public void setEntityName(String entityName) {
+		this.entityName = entityName;
+	}
+	
+	public DateTime getDateCreated() {
+		return dateCreated;
+	}
+	
+	public void setDateCreated(DateTime dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+	
+	public DateTime getDateModified() {
+		return dateModified;
+	}
+	
+	public void setDateModified(DateTime dateModified) {
+		this.dateModified = dateModified;
+	}
+	
+	public Boolean getDeleted() {
+		return deleted;
+	}
+	
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (null != obj) {
@@ -44,19 +83,7 @@ public class BaseEntityModel extends BaseModel {
 		}
 		return false;
 	}
-
-	public Date getDateCreated() {
-		return dateCreated;
-	}
-
-	public Date getDateModified() {
-		return dateModified;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		if (this.id == null) {
@@ -64,38 +91,11 @@ public class BaseEntityModel extends BaseModel {
 		}
 		return HashCodeBuilder.reflectionHashCode(this.id);
 	}
-
-	public Boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	public void setDateModified(Date dateModified) {
-		this.dateModified = dateModified;
-	}
-
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/*
-	 * public String getFrom() { return from; }
-	 */
-	/*
-	 * public void setFrom(String from) { this.from = from; }
-	 */
-
+	
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this,
 				ToStringStyle.MULTI_LINE_STYLE);
 	}
-
+	
 }

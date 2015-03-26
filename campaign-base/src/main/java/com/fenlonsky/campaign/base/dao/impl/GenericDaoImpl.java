@@ -8,22 +8,25 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Repository;
 
 import com.fenlonsky.campaign.base.dao.GenericDao;
 import com.fenlonsky.campaign.base.model.BaseEntityModel;
 
-@Repository("GenericDao")
 public class GenericDaoImpl<T extends BaseEntityModel> implements GenericDao<T, Long> {
 	
-	public static final String FIND = "find_";
-	public static final String FIND_ALL = "findAll_";
-	public static final String CREATE = "create_";
-	public static final String DELETE = "delete_";
-	public static final String UPDATE = "update_";
-	public static final String COUNT = "count_";
+	public static final String FIND_ALL = "findAll";
+	public static final String FIND_ALL_BY_SORT = "findAllBySort";
+	public static final String FIND_BY_ID = "findById";
+	public static final String CREATE = "create";
+	public static final String CREATE_SELECTIVE = "createSelective";
+	public static final String COUNT = "count";
+	private static final String DELETE_BY_ID = "deleteById";
+	private static final String UPDATE_BY_ID_SELECTIVE = "updateByIdSelective";
+	private static final String UPDATE_BY_ID = "updateById";
+	
 	@Autowired
 	protected SqlSessionTemplate template;
 	private Class<T> type;
@@ -32,22 +35,21 @@ public class GenericDaoImpl<T extends BaseEntityModel> implements GenericDao<T, 
 		this.type = this.getDAOClass();
 	}
 	
-	@SuppressWarnings("all")
+	@SuppressWarnings("unchecked")
 	private Class<T> getDAOClass() {
-		Class clazz = (Class) ((ParameterizedType) this.getClass().getGenericSuperclass())
+		Class<T> clazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass())
 				.getActualTypeArguments()[0];
 		return clazz;
 	}
 	
 	@Override
 	public List<T> findAll() {
-		return this.template.selectList(type.getSimpleName());
-		
+		return this.template.selectList(type.getName() + "." + FIND_ALL);
 	}
 	
 	@Override
 	public List<T> findAll(Sort sort) {
-		return this.template.selectList(type.getSimpleName(), sort);
+		return this.template.selectList(type.getName() + "." + FIND_ALL_BY_SORT, sort);
 	}
 	
 	@Override
@@ -91,45 +93,50 @@ public class GenericDaoImpl<T extends BaseEntityModel> implements GenericDao<T, 
 	
 	@Override
 	public void deleteInBatch(Iterable<T> entities) {
+		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
 	public void deleteAllInBatch() {
+		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
-	public T getOne(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public T getOne(Long Id) {
+		return this.template.selectOne(type.getName() + "." + FIND_BY_ID, Id);
 	}
 	
 	@Override
-	public Page<T> findAll(Pageable page) {
-		// TODO Auto-generated method stub
+	public Page<T> findAll(Pageable pageable) {
+		
+		if (null == pageable) {
+			return new PageImpl<T>(findAll());
+		}
 		return null;
+		// return findAll(null, pageable);
 	}
 	
 	@Override
 	public long count() {
-		return this.template.selectOne(type.getSimpleName());
+		return this.template.selectOne(type.getName() + "." + COUNT);
 	}
 	
 	@Override
-	public void delete(Long ID) {
-		this.template.delete(type.getSimpleName(), ID);
+	public void delete(Long Id) {
+		this.template.delete(type.getName() + "." + DELETE_BY_ID, Id);
 	}
 	
 	@Override
-	public void delete(T obj) {
-		this.template.delete(type.getSimpleName(), obj);
+	public void delete(T record) {
 		
+		this.template.delete(type.getName(), record);
 	}
 	
 	@Override
-	public void delete(Iterable<? extends T> objs) {
-		this.template.delete(type.getSimpleName(), objs);
+	public void delete(Iterable<? extends T> records) {
+		this.template.delete(type.getName(), records);
 	}
 	
 	@Override
@@ -138,24 +145,42 @@ public class GenericDaoImpl<T extends BaseEntityModel> implements GenericDao<T, 
 	}
 	
 	@Override
-	public boolean exists(Long ID) {
-		if (this.template.selectOne(type.getSimpleName(), ID) == null) {
+	public boolean exists(Long Id) {
+		if (findOne(Id) == null) {
 			return false;
 		}
 		return true;
 	}
 	
 	@Override
-	public T findOne(Long ID) {
-		return this.template.selectOne(type.getSimpleName(), ID);
-		
+	public T findOne(Long Id) {
+		return this.template.selectOne(type.getName() + "." + FIND_BY_ID, Id);
 	}
 	
 	@Override
-	public <S extends T> S save(S s) {
-		if (this.template.insert(type.getSimpleName(), s) > 0) {
-			return s;
+	public <S extends T> S save(S record) {
+		if (this.template.insert(type.getName() + "." + CREATE, record) > 0) {
+			return record;
 		}
 		return null;
 	}
+	
+	@Override
+	public T saveSelective(T record) {
+		if (this.template.insert(type.getName() + "." + CREATE_SELECTIVE, record) > 0) {
+			return record;
+		}
+		return null;
+	}
+	
+	@Override
+	public T updateByIdSelective(T record) {
+		return this.template.update(type.getName() + "." + UPDATE_BY_ID_SELECTIVE, record) > 0 ? record : null;
+	}
+	
+	@Override
+	public T updateById(T record) {
+		return this.template.update(type.getName() + "." + UPDATE_BY_ID, record) > 0 ? record : null;
+	}
+	
 }

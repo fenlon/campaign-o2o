@@ -2,12 +2,12 @@ package com.fenlonsky.campaign.base.web.spring.controller;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -46,7 +46,7 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	@ResponseBody
 	public T create(@RequestBody T model) {
 		this.model = model;
-		Date date = new Date();
+		DateTime date = DateTime.now();
 		this.model.setDateCreated(date);
 		this.model.setDateModified(date);
 		this.model = this.manager.save(this.model);
@@ -118,7 +118,7 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	@ResponseBody
 	public T update(@PathVariable PK id, @RequestBody T model) {
 		model.setId(Long.valueOf(id.toString()));
-		model.setDateModified(new Date());// 更新修改时间
+		model.setDateModified(DateTime.now());// 更新修改时间
 		this.model = this.manager.save(model);
 		return this.model;
 	}

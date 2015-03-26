@@ -40,12 +40,11 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table schema="DB2ADMIN" tableName="t_account"
-			domainObjectName="TrafficRedTemplate" enableCountByExample="false"
-			enableDeleteByExample="false" enableSelectByExample="false"
-			enableUpdateByExample="false">
+		<table schema="DB2ADMIN" tableName="t_account" domainObjectName="Account"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" enableUpdateByExample="false">
 			<property name="useActualColumnNames" value="true" />
-	<!-- <columnOverride column="status" javaType="org.sz.mbay.channel.util.EnableState"></columnOverride> -->
+			<!-- <columnOverride column="status" javaType="org.sz.mbay.channel.util.EnableState"></columnOverride> -->
 			<columnOverride column="dateCreated" javaType="org.joda.time.DateTime"></columnOverride>
 			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride>
 		</table>

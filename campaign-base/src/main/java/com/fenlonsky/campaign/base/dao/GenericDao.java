@@ -23,4 +23,11 @@ import com.fenlonsky.campaign.base.model.BaseEntityModel;
 @NoRepositoryBean
 public interface GenericDao<T extends BaseEntityModel, PK extends Serializable>
 		extends JpaRepository<T, PK> {
+	
+	T saveSelective(T record);
+	
+	T updateByIdSelective(T record);
+	
+	T updateById(T record);
+	
 }

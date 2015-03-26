@@ -1,9 +1,9 @@
 package com.fenlonsky.campaign.base.service.impl;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +50,7 @@ public class GenericManagerImpl<T extends BaseEntityModel, PK extends Serializab
 	
 	@Override
 	public T save(T entity) {
-		Date date = new Date();
+		DateTime date = DateTime.now();
 		Long id = entity.getId();
 		if (id == null) {
 			entity.setDateCreated(date);

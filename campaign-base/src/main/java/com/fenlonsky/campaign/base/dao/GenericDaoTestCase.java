@@ -5,8 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.io.Serializable;
-import java.util.Date;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.dao.DataAccessException;
@@ -43,7 +43,7 @@ public class GenericDaoTestCase<PK extends Serializable, T extends BaseEntityMod
 	public void testSave() throws InstantiationException,
 			IllegalAccessException {
 		this.entity = this.persistentClass.newInstance();
-		Date now = new Date();
+		DateTime now = DateTime.now();
 		this.entity.setDateModified(now);
 		T result = this.dao.save(this.entity);
 		assertNotNull(result);
