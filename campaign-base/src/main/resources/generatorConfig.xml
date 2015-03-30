@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<classPathEntry
+		location="D:\Java\maven\repos\mysql\mysql-connector-java\5.1.29\mysql-connector-java-5.1.29.jar" />
+
+	<context id="REDTABLE" targetRuntime="MyBatis3">
+		<!-- 是否取消生成注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.21.60:3306/fenlon?useUnicode=true&amp;characterEncoding=UTF-8"
+			userId="root" password="fenlon">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="test.model"
+			targetProject="src\main\java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="test.xml"
+			targetProject="src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="test.dao" targetProject="src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<table schema="DB2ADMIN" tableName="t_account" domainObjectName="Account"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" enableUpdateByExample="false">
+			<property name="useActualColumnNames" value="true" />
+			<!-- <columnOverride column="status" javaType="org.sz.mbay.channel.util.EnableState"></columnOverride> -->
+			<columnOverride column="dateCreated" javaType="org.joda.time.DateTime"></columnOverride>
+			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride>
+		</table>
+	</context>
+</generatorConfiguration>
