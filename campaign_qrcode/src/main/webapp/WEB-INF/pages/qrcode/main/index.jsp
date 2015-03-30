@@ -150,7 +150,7 @@
 							<tr>
 								<td>logo路径</td>
 								<td><input type="text" name="logoUrl"
-									placeholder="{{qrcode.logoUrl}}" ng-model="qrcode.logoUrl"><span>{{qrcode.logoUrl}}</span></td>
+									placeholder="{{qrcode.logoUrl}}" ng-model="qrcode.logoUrl"><span><!-- {{qrcode.logoUrl}} --></span></td>
 							</tr>
 						</table>
 					</div>

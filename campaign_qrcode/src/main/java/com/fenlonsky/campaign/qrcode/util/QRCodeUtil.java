@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -113,6 +115,47 @@ public class QRCodeUtil {
 		if (bim == null) {
 			return null;
 		}
+		if (code.getLogoUrl() != null) {
+			BufferedImage logo = readRemotePic(code.getLogoUrl());
+			if (logo != null) {
+				bim = addLogo_QRCode2(bim, logo, new LogoConfig());
+			}
+		}
+		
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(BUFFER_SIZE);
+		try {
+			ImageIO.write(bim, QRCODE_FILETYPE, bos);
+		} catch (IOException e) {
+			logger.error("getQRCodeBytes", e.fillInStackTrace());
+		}
+		return bos.toByteArray();
+	}
+	
+	public static BufferedImage readRemotePic(String urlStr) {
+		URL url = null;
+		BufferedImage image = null;
+		try {
+			url = new URL(urlStr);
+			image = ImageIO.read(url);
+			return image;
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
+	public static byte[] getQRCodeBytes3(QRCode code) {
+		
+		// 得到二维码图片的bufferImage
+		BufferedImage bim = getQR_CODEBufferedImage(BarcodeFormat.QR_CODE, code);
+		if (bim == null) {
+			return null;
+		}
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(BUFFER_SIZE);
 		try {
 			ImageIO.write(bim, QRCODE_FILETYPE, bos);
@@ -195,6 +238,49 @@ public class QRCodeUtil {
 			BufferedImage logo = ImageIO.read(logoPic);
 			// 同比例重置图片大小（依据logo设置的大小）
 			// logo = resetImageSize(logo, WIDTH/ LogoConfig.DEFAULT_LOGOPART);
+			
+			int widthLogo = logo.getWidth(), heightLogo = logo.getHeight();
+			
+			// 计算图片放置位置
+			int x = (qrCodeImg.getWidth() - widthLogo) / 2;
+			int y = (qrCodeImg.getHeight() - logo.getHeight()) / 2;
+			
+			// 开始绘制图片
+			g.drawImage(logo, x, y, widthLogo, heightLogo, null);
+			g.drawRoundRect(x, y, widthLogo, heightLogo, 15, 15);
+			g.setStroke(new BasicStroke(logoConfig.getBorder()));
+			g.setColor(logoConfig.getBorderColor());
+			g.drawRect(x, y, widthLogo, heightLogo);
+			g.dispose();
+			return qrCodeImg;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return qrCodeImg;
+	}
+	
+	/**
+	 * 给二维码图片添加Logo
+	 * 
+	 * @param qrPic
+	 *            二维码图片
+	 * @param logoPic
+	 *            logo图片
+	 */
+	private static BufferedImage addLogo_QRCode2(BufferedImage qrCodeImg,
+			BufferedImage logo, LogoConfig logoConfig) {
+		try {
+			if (qrCodeImg == null) {
+				logger.error("addLogo_QRCode", "二维码BufferedImage不存在");
+				return null;
+			}
+			
+			Graphics2D g = qrCodeImg.createGraphics();
+			/**
+			 * 读取logo圖片
+			 */
+			// 同比例重置图片大小（依据logo设置的大小）
+			logo = resetImageSize(logo, qrCodeImg.getHeight() / LogoConfig.DEFAULT_LOGOPART);
 			
 			int widthLogo = logo.getWidth(), heightLogo = logo.getHeight();
 			
