@@ -32,11 +32,12 @@
 		<hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
 
 
+
 		<log4j.version>1.2.17</log4j.version>
 		<slf4j.version>1.7.6</slf4j.version>
 
 		<spring.version>4.1.1.RELEASE</spring.version>
-
+		<mysql.version>5.1.33</mysql.version>
 		<mybatis.version>3.2.8</mybatis.version>
 	</properties>
 

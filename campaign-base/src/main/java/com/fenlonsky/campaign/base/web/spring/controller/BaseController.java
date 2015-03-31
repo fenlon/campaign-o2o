@@ -5,5 +5,4 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 @Controller
 public class BaseController extends MultiActionController {
-	
 }

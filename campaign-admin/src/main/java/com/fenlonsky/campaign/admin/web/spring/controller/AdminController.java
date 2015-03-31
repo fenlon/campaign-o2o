@@ -14,4 +14,5 @@ public class AdminController extends BaseController {
 	public String index() {
 		return "/admin/main/index";
 	}
+	
 }

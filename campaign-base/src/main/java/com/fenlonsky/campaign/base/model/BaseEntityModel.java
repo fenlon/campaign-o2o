@@ -3,6 +3,7 @@ package com.fenlonsky.campaign.base.model;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.codehaus.jackson.map.ext.JodaSerializers.DateTimeSerializer;
 import org.joda.time.DateTime;
 
 public class BaseEntityModel extends BaseModel {
@@ -17,6 +18,7 @@ public class BaseEntityModel extends BaseModel {
 	/**
 	 * 实体创建时间
 	 */
+	@org.codehaus.jackson.map.annotate.JsonSerialize(using = DateTimeSerializer.class)
 	protected DateTime dateCreated = DateTime.now();
 	
 	/**

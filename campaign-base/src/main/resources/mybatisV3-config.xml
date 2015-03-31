@@ -8,6 +8,7 @@
 	</typeAliases>
 	<typeHandlers>
 		<typeHandler
-			handler="com.fenlonsky.campaign.base.persist.mybatis.handler.DateTimeTypeHandler" />
+			handler="com.fenlonsky.campaign.base.persist.mybatis.handler.DateTimeTypeHandler"
+			javaType="org.joda.time.DateTime" jdbcType="TIMESTAMP" />
 	</typeHandlers>
 </configuration>
