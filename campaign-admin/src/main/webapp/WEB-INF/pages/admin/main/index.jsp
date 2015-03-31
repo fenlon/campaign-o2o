@@ -17,13 +17,17 @@
 	href="${pageContext.request.contextPath }/resources/style/common/bootstrap3/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/resources/js/angularjs/angular.min.js"></script>
+	src="${pageContext.request.contextPath }/resources/js/angularjs/angular.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/resources/js/angularjs/angular-route.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/resources/js/angularjs/angular-resource.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/js/admin/index.js"></script>
 </style>
 </head>
-<body>
-	<div class="container">
+<body ng-app="app">
+	<div class="container" ng-controller="AccountCtrl">
 		<div>
 			<table class="table">
 				<tr>

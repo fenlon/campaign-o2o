@@ -1,21 +1,34 @@
-var app = angular.module('app', ['ngResource', 'ngRoute']);
+var app = angular.module('app', ['ngResource']);
 
 app.factory('Account', ['$resource', function($resource) {
-					return $resource('/account/:id', null, {
-								'update' : {
-									method : 'PUT'
+					return $resource(ctx + '/account/:aid.json', {
+								aid : '@id'
+							}, {
+								'get' : {
+									method : 'GET'
+								},
+								'save' : {
+									method : 'POST'
+								},
+								'query' : {
+									method : 'GET',
+									isArray : true
+								},
+								'remove' : {
+									method : 'DELETE'
+								},
+								'delete' : {
+									method : 'DELETE'
 								}
 							});
 				}]);
 
-app.controller('NotesCtrl', ['$scope', '$routeParams', 'Notes',
-				function($scope, $routeParams, Notes) {
-					// First get a note object from the factory
-					var note = Notes.get({
-								id : $routeParams.id
+app.controller('AccountCtrl', ['$scope', 'Account', function($scope, Account) {
+
+					var A = Account.get({
+								aid : 1
+							}, function(account) {
+								alert(account.name);
 							});
-					$id = note.id;
-					Notes.update({
-								id : $id
-							}, note);
+					alert(A.name);
 				}]);

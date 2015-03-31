@@ -59,6 +59,7 @@
 		<servlet-name>DispatcherServlet</servlet-name>
 		<url-pattern>*.jsonp</url-pattern>
 	</servlet-mapping>
+
 	<servlet-mapping>
 		<servlet-name>DispatcherServlet</servlet-name>
 		<url-pattern>/resources/*</url-pattern>
