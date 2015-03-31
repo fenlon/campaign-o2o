@@ -19,12 +19,30 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/js/angularjs/angular.min.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/resources/js/qrcode/index.js"></script>
+	src="${pageContext.request.contextPath }/resources/js/admin/index.js"></script>
 </style>
 </head>
 <body>
 	<div class="container">
-		<h1>this is admin module</h1>
+		<div>
+			<table class="table">
+				<tr>
+					<td>aa</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div>
+		<div>
+			<label>编号</label> <input name="number" type="text">
+		</div>
+		<div>
+			<label>名称</label> <input name="name" type="text">
+		</div>
+		<div>
+			<button>添加</button>
+		</div>
 	</div>
 </body>
 </html>
