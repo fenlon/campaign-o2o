@@ -2,6 +2,7 @@ package com.fenlonsky.campaign.base.web.spring.controller;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -74,7 +75,7 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	 * @return
 	 */
 	// 1
-	@RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/aaa/", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Page<T> get(HttpServletRequest request, HttpServletResponse response) {
 		String page = request.getParameter("page");
@@ -92,6 +93,15 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 		this.page = this.manager.findAll(this.pageable);
 		logger.info(this.page);
 		return this.page;
+	}
+	
+	@RequestMapping(value = "/a.html", method = RequestMethod.GET)
+	@ResponseBody
+	public List<T> get() {
+		System.out.println("aaaa");
+		List<T> list = this.manager.findAll();
+		System.out.println("aaa");
+		return list;
 	}
 	
 	/**
@@ -119,7 +129,7 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	public T update(@PathVariable PK id, @RequestBody T model) {
 		model.setId(Long.valueOf(id.toString()));
 		model.setDateModified(DateTime.now());// 更新修改时间
-		this.model = this.manager.save(model);
+		this.model = this.manager.update(model);
 		return this.model;
 	}
 	

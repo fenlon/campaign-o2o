@@ -132,4 +132,10 @@
 		#{dateModified,jdbcType=TIMESTAMP}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_account where deleted =0
+	</select>
 </mapper>

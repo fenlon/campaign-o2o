@@ -24,7 +24,9 @@
 				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 				<property name="supportedMediaTypes">
 					<list>
-						<value>application/json; charset=UTF-8</value>
+						<value>application/json;
+							charset=UTF-8
+						</value>
 						<value>application/x-www-form-urlencoded; charset=UTF-8</value>
 					</list>
 				</property>
@@ -53,7 +55,7 @@
 			<list>
 				<bean
 					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
-					<property name="prefixJson" value="true" />
+					<property name="prefixJson" value="false" />
 				</bean>
 			</list>
 		</property>
@@ -77,17 +79,12 @@
 		p:basename="i18n/messages" />
 
 	<!-- Mapping exception to the handler view -->
-	<bean id="exceptionResolver"
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	<!-- <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> -->
 	<!-- to /commons/error.jsp -->
-		<property name="defaultErrorView" value="/WEB-INF/pages/commons/error" />
-		<property name="exceptionMappings">
-			<props>
-				<prop key="java.lang.Exception">/WEB-INF/pages/commons/error</prop>
-				<prop key="java.lang.RuntimeException">commons/error</prop>
-			</props>
-		</property>
-	</bean>
+	<!-- <property name="defaultErrorView" value="/WEB-INF/pages/commons/error" 
+		/> <property name="exceptionMappings"> <props> <prop key="java.lang.Exception">/WEB-INF/pages/commons/error</prop> 
+		<prop key="java.lang.RuntimeException">commons/error</prop> </props> </property> 
+		</bean> -->
 	<!-- 支持上传文件 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />

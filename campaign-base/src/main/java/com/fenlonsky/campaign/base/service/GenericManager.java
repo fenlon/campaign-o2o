@@ -68,4 +68,12 @@ public interface GenericManager<T extends BaseEntityModel, PK extends Serializab
 	 * @param id
 	 */
 	public void delete(PK id);
+	
+	/**
+	 * update entity
+	 * 
+	 * @param entity
+	 * @return
+	 */
+	public T update(T entity);
 }

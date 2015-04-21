@@ -70,4 +70,9 @@ public class GenericManagerImpl<T extends BaseEntityModel, PK extends Serializab
 		this.dao.delete(id);
 	}
 	
+	@Override
+	public T update(T entity) {
+		return this.dao.updateByIdSelective(entity);
+	}
+	
 }
