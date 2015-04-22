@@ -11,4 +11,8 @@
 			handler="com.fenlonsky.campaign.base.persist.mybatis.handler.DateTimeTypeHandler"
 			javaType="org.joda.time.DateTime" jdbcType="TIMESTAMP" />
 	</typeHandlers>
+	<plugins>
+		<plugin
+			interceptor="com.fenlonsky.campaign.base.dao.mybatis.interceptor.PageInterceptor"></plugin>
+	</plugins>
 </configuration>
