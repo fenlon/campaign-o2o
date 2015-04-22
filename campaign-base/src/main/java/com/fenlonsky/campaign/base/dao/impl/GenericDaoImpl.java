@@ -3,7 +3,9 @@ package com.fenlonsky.campaign.base.dao.impl;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +15,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import com.fenlonsky.campaign.base.dao.GenericDao;
+import com.fenlonsky.campaign.base.dao.mybatis.utils.DataUtil;
+import com.fenlonsky.campaign.base.dao.utils.PKgen;
 import com.fenlonsky.campaign.base.model.BaseEntityModel;
 
 public class GenericDaoImpl<T extends BaseEntityModel> implements GenericDao<T, Long> {
 	
 	public static final String FIND_ALL = "findAll";
 	public static final String FIND_ALL_BY_SORT = "findAllBySort";
+	public static final String FIND_ALL_BY_PAGE = "findAllByPage";
 	public static final String FIND_BY_ID = "selectById";
-	public static final String CREATE = "create";
+	public static final String CREATE = "insert";
 	public static final String CREATE_SELECTIVE = "createSelective";
 	public static final String COUNT = "count";
 	private static final String DELETE_BY_ID = "deleteById";
+	private static final String REMOVE_BY_ID = "removeById";
 	private static final String UPDATE_BY_ID_SELECTIVE = "updateByIdSelective";
 	private static final String UPDATE_BY_ID = "updateById";
 	
@@ -110,12 +116,12 @@ public class GenericDaoImpl<T extends BaseEntityModel> implements GenericDao<T, 
 	
 	@Override
 	public Page<T> findAll(Pageable pageable) {
-		
-		if (null == pageable) {
-			return new PageImpl<T>(findAll());
-		}
-		return null;
-		// return findAll(null, pageable);
+		// 不应该在这里判断分页对象是否为空，应该在controller层去做控制
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("page", pageable);
+		List<T> content = this.template.selectList(type.getName() + "." + FIND_ALL_BY_PAGE, map);
+		Long total = DataUtil.getTotalCount();
+		return new PageImpl<T>(content, pageable, total);
 	}
 	
 	@Override
@@ -159,6 +165,7 @@ public class GenericDaoImpl<T extends BaseEntityModel> implements GenericDao<T, 
 	
 	@Override
 	public <S extends T> S save(S record) {
+		record.setId(PKgen.getInstance().nextPK());
 		if (this.template.insert(type.getName() + "." + CREATE, record) > 0) {
 			return record;
 		}
@@ -167,6 +174,7 @@ public class GenericDaoImpl<T extends BaseEntityModel> implements GenericDao<T, 
 	
 	@Override
 	public T saveSelective(T record) {
+		record.setId(PKgen.getInstance().nextPK());
 		if (this.template.insert(type.getName() + "." + CREATE_SELECTIVE, record) > 0) {
 			return record;
 		}
@@ -181,6 +189,11 @@ public class GenericDaoImpl<T extends BaseEntityModel> implements GenericDao<T, 
 	@Override
 	public T updateById(T record) {
 		return this.template.update(type.getName() + "." + UPDATE_BY_ID, record) > 0 ? record : null;
+	}
+	
+	@Override
+	public Boolean remove(Long id) {
+		return this.template.delete(type.getName() + "." + REMOVE_BY_ID, id) > 0;
 	}
 	
 }

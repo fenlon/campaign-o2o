@@ -30,4 +30,6 @@ public interface GenericDao<T extends BaseEntityModel, PK extends Serializable>
 	
 	T updateById(T record);
 	
+	Boolean remove(PK id);
+	
 }
