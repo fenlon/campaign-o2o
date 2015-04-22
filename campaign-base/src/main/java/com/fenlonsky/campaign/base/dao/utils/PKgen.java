@@ -31,59 +31,59 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 
 public class PKgen {
-
+	
 	/**
 	 * 
 	 * PK生成锁，用来限定同一时刻只有一个线程进入PK生成计算
 	 */
-
+	
 	private final Lock LOCK = new ReentrantLock();
-
+	
 	/**
 	 * 
 	 * 初始化时的毫秒数，因为该时间会随系统时间的改变而改变，
 	 * 
 	 * 所以计算方法为该时间加上通过 nanoTime 计算出来的时间差
 	 */
-
+	
 	private final static Long startMilli = System.currentTimeMillis();
-
+	
 	/**
 	 * 
 	 * 初始化时的纳秒数，用来计量时间差，nanoTime不会随着系统时间的修改而改变
 	 */
-
+	
 	private final static long startNano = System.nanoTime();
-
+	
 	/**
 	 * 
 	 * 记录上一次生成 的 PK，如果新生成的PK和上次相等，则需要再次生成
 	 */
-
+	
 	private volatile long lastPK = -1;
-
+	
 	private final static SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyyMMddHHmmssSSS");
-
+	
 	/**
 	 * 
 	 * 返回的long PK的尾数，尾数可以用来在集群环境中判断该PK由哪一个节点产生
 	 * 
 	 * 尾数通过配置设定
 	 */
-
+	
 	private int suffix = 0;
-
+	
 	private static final Map<Integer, PKgen> instanceMap = new HashMap<Integer, PKgen>();
-
+	
 	// 必须提供正确的参数，以保证 suffix 在机群环境的唯一性
-
+	
 	public synchronized static PKgen getInstance() {
-
+		
 		return getInstance(0);
-
+		
 	}
-
+	
 	/**
 	 * 
 	 * 单机环境下，应该保证用相同的 suffix
@@ -97,53 +97,53 @@ public class PKgen {
 	 * @param suffix
 	 *            唯一标识好
 	 */
-
+	
 	public synchronized static PKgen getInstance(int suffix) {
-
+		
 		PKgen pkgen;
-
+		
 		if (!instanceMap.containsKey(suffix)) {
-
+			
 			pkgen = new PKgen(suffix);
-
+			
 			instanceMap.put(suffix, pkgen);
-
+			
 		}
-
+		
 		else {
-
+			
 			pkgen = instanceMap.get(suffix);
-
+			
 		}
-
+		
 		return pkgen;
-
+		
 	}
-
+	
 	public static void main(String[] args) throws Exception {
-
+		
 		PKgen pkg = PKgen.getInstance(0);
-
+		
 		int i = 0;
-
+		
 		long now = System.currentTimeMillis();
-
+		
 		while (i++ < 10) {
-
+			
 			System.out.println(pkg.nextPK());
-
+			
 		}
-
+		
 		System.out.println("Time: " + (System.currentTimeMillis() - now));
-
+		
 	}
-
+	
 	private PKgen(int suffix) {
-
+		
 		this.suffix = suffix;
-
+		
 	}
-
+	
 	/**
 	 * 
 	 * 返回下一个 long 型 PK, format: 2006111423361344491 <br>
@@ -154,45 +154,51 @@ public class PKgen {
 	 * 
 	 * @return long PK
 	 */
-
+	
 	public long nextPK() {
-
+		
 		LOCK.lock();
-
+		
 		try {
-
+			
 			long newPK;
-
+			
 			do {
-
+				
 				long pastNano = System.nanoTime() - startNano; // 纳秒时间差
-
+				
 				long milliTime = pastNano / 1000000; // 取得毫秒差
-
+				
 				long macroTime = (pastNano / 100000) % 10; // 取得微秒第一位，
-
+				
 				// 计算出来的long PK，精度到万分之一秒（百微妙），加上尾数，一共19位，这是 Long.MAX_VALUE的最大位数了
-
+				
 				newPK = Long.parseLong(dateFormat.format(new Date(startMilli
 						+ milliTime))
 						+ macroTime + suffix);
-
+				
 			}
-
+			
 			while (lastPK == newPK); // 如果生成的相同，则再次计算
-
+			
 			lastPK = newPK; // 设置 lastPK
-
+			
+			/** fenlon modified: 为了解决java中long类型值在json串行化时截取补零的问题，需要将前面数据进行截取 **/
+			/** javascript 中数值和Java数值范围问题，javascript小于java **/
+			
+			String pk = String.valueOf(newPK);
+			pk = pk.substring(2);
+			newPK = Long.valueOf(pk);
 			return newPK;
-
+			
 		}
-
+		
 		finally {
-
+			
 			LOCK.unlock();
-
+			
 		}
-
+		
 	}
-
+	
 }
