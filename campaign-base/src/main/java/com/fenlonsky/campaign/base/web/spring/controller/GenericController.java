@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +44,7 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+	@RequestMapping(value = "/data.json", method = RequestMethod.POST, consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public T create(@RequestBody T model) {
 		this.model = model;
@@ -62,9 +63,9 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
 	@ResponseBody
-	public void delete(@PathVariable PK id) throws IOException {
-		
-		this.manager.delete(id);
+	public Boolean delete(@PathVariable PK id) throws IOException {
+		// return this.manager.delete(id);
+		return this.manager.remove(id);
 	}
 	
 	/**
@@ -75,7 +76,7 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	 * @return
 	 */
 	// 1
-	@RequestMapping(value = "/aaa/", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/queryByPage.json", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Page<T> get(HttpServletRequest request, HttpServletResponse response) {
 		String page = request.getParameter("page");
@@ -95,12 +96,10 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 		return this.page;
 	}
 	
-	@RequestMapping(value = "/a.html", method = RequestMethod.GET)
+	@RequestMapping(value = "/query.json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<T> get() {
-		System.out.println("aaaa");
 		List<T> list = this.manager.findAll();
-		System.out.println("aaa");
 		return list;
 	}
 	

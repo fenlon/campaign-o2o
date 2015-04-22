@@ -67,7 +67,14 @@ public interface GenericManager<T extends BaseEntityModel, PK extends Serializab
 	 * 
 	 * @param id
 	 */
-	public void delete(PK id);
+	public Boolean delete(PK id);
+	
+	/**
+	 * remove entity according given id
+	 * 
+	 * @return
+	 */
+	public Boolean remove(PK id);
 	
 	/**
 	 * update entity
@@ -76,4 +83,5 @@ public interface GenericManager<T extends BaseEntityModel, PK extends Serializab
 	 * @return
 	 */
 	public T update(T entity);
+	
 }

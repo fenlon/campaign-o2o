@@ -10,18 +10,22 @@ app.factory('Account', [ '$resource', function($resource) {
 			method : 'GET'
 		},
 		'save' : {
+			url : 'account/data.json',
 			method : 'POST'
 		},
 		'update' : {
 			method : "PUT"
 		},
 		'query' : {
+			url : "account/queryByPage.json",
 			method : 'GET',
-			isArray : true,
-			params : {
-				format : ''
-			}
+			isArray : true
 		},
+		// 'query' : {
+		// url : "account/query.json",
+		// method : 'GET',
+		// isArray : true
+		// },
 		'remove' : {
 			method : 'DELETE'
 		},
@@ -31,18 +35,24 @@ app.factory('Account', [ '$resource', function($resource) {
 	});
 } ]);
 app.controller('AccountCtrl', [ '$scope', 'Account', function($scope, Account) {
-
-	Account.get({
-		id : 1
-	}, function(account) {
-		account.name = "lilei6";
-		account.$update();
-	});
-	Account.query();
-	//
+	// var id = null;
 	// Account.save({
-	// name : 'lilei4',
+	// name : 'fenlonxiong',
 	// number : '564'
+	// }, function(account) {
+	// id = account.id;
+	// });
+
+	// Account.get({
+	// id : 1
+	// }, function(account) {
+	// account.name = "lilei63";
+	// account.$update();
+	// });
+	Account.query();
+
+	// Account.remove({
+	// id : 1
 	// }, function(account) {
 	//
 	// });

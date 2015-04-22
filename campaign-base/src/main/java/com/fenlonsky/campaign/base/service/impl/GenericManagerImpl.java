@@ -66,8 +66,18 @@ public class GenericManagerImpl<T extends BaseEntityModel, PK extends Serializab
 	}
 	
 	@Override
-	public void delete(PK id) {
+	public Boolean delete(PK id) {
 		this.dao.delete(id);
+		T model = this.dao.findOne(id);
+		if (model == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public Boolean remove(PK id) {
+		return this.dao.remove(id);
 	}
 	
 	@Override
