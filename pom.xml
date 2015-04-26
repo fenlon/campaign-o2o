@@ -65,7 +65,7 @@
 		<repository>
 			<id>mbay-saizhi</id>
 			<name>mbay-saizhi</name>
-			<url>http://192.168.21.148:8081/nexus/content/repositories/snapshots/</url>
+			<url>http://120.25.230.36:8081/nexus/content/repositories/snapshots/</url>
 		</repository>
 	</repositories>
 
@@ -73,13 +73,13 @@
 		<repository>
 			<id>releases</id>
 			<name>Internal Releases</name>
-			<url>http://192.168.21.148:8081/nexus/content/repositories/releases/</url>
+			<url>http://120.25.230.36:8081/nexus/content/repositories/releases/</url>
 		</repository>
 
 		<snapshotRepository>
 			<id>Snapshots</id>
 			<name>Internal Snapshots</name>
-			<url>http://192.168.21.148:8081/nexus/content/repositories/snapshots/</url>
+			<url>http://120.25.230.36:8081/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
