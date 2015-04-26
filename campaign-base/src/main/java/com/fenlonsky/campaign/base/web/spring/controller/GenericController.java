@@ -24,6 +24,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fenlonsky.campaign.base.model.BaseEntityModel;
 import com.fenlonsky.campaign.base.service.GenericManager;
 
+/**
+ * 
+ * @ClassName: GenericController 抽象的controller实现类
+ * @Description: 抽象的controller实现类，各自的controller可以继承该抽象类
+ * @author <a href="mailto:fenlonxiong@gmail.com">Fenlon</a>
+ * @date 2015年4月26日 上午10:24:37
+ * 
+ * @param <T>Model类（实体类）
+ * @param <PK>主键ID
+ * @param <M>service层的类
+ */
 public abstract class GenericController<T extends BaseEntityModel, PK extends Serializable, M extends GenericManager<T, PK>>
 		extends BaseController {
 	
@@ -96,6 +107,11 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 		return this.page;
 	}
 	
+	/**
+	 * 查询所有的实体对象
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/query.json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<T> get() {

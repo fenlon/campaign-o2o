@@ -16,8 +16,8 @@
 
 
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://192.168.21.60:3306/fenlon?useUnicode=true&amp;characterEncoding=UTF-8"
-			userId="root" password="fenlon">
+			connectionURL="jdbc:mysql://localhost:3306/campaign?useUnicode=true&amp;characterEncoding=UTF-8"
+			userId="fenlon" password="fenlon">
 		</jdbcConnection>
 
 		<javaTypeResolver>
@@ -40,11 +40,21 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table schema="DB2ADMIN" tableName="t_account" domainObjectName="Account"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false">
+		<!-- <table schema="DB2ADMIN" tableName="t_account" domainObjectName="Account" 
+			enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" 
+			enableUpdateByExample="false"> <property name="useActualColumnNames" value="true" 
+			/> <columnOverride column="status" javaType="org.sz.mbay.channel.util.EnableState"></columnOverride> 
+			<columnOverride column="dateCreated" javaType="org.joda.time.DateTime"></columnOverride> 
+			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride> 
+			</table> -->
+
+		<table schema="DB2ADMIN" tableName="t_account_user"
+			domainObjectName="AccountUser" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
 			<property name="useActualColumnNames" value="true" />
-			<!-- <columnOverride column="status" javaType="org.sz.mbay.channel.util.EnableState"></columnOverride> -->
+			<columnOverride column="gender"
+				javaType="com.fenlonsky.campaign.base.common.enums.Gender"></columnOverride>
 			<columnOverride column="dateCreated" javaType="org.joda.time.DateTime"></columnOverride>
 			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride>
 		</table>
