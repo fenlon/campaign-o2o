@@ -15,7 +15,7 @@ import com.fenlonsky.campaign.base.model.BaseEntityModel;
  * Extend this interface if you want type safe (no casting necessary) managers
  * for your domain objects.
  * 
- * @author <a href="mailto:ming616@gmail.com">Liu Xiaoming</a>
+ * @author <a href="mailto:fenlonxiong@gmail.com">Fenlon</a>
  * @param <T>
  *            a type variable
  * @param <PK>

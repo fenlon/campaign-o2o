@@ -26,7 +26,7 @@ public class GenericDaoImpl<T extends BaseEntityModel> implements GenericDao<T, 
 	public static final String FIND_ALL_BY_PAGE = "findAllByPage";
 	public static final String FIND_BY_ID = "selectById";
 	public static final String CREATE = "insert";
-	public static final String CREATE_SELECTIVE = "createSelective";
+	public static final String CREATE_SELECTIVE = "insertSelective";
 	public static final String COUNT = "count";
 	private static final String DELETE_BY_ID = "deleteById";
 	private static final String REMOVE_BY_ID = "removeById";
