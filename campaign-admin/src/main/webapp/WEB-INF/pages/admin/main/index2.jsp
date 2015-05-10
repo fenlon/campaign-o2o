@@ -10,26 +10,43 @@
 
 <script type="text/javascript">
 	var ctx = '${pageContext.request.contextPath	}';
-	//var extjsPath = "http://222.22.91.35:8080/ext-4.2.1.883/";
+	var extjsPath = "http://222.22.91.35:8080/ext-4.2.1.883/";
 </script>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/common/bootstarp3/bootstrap.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/common/bootstarp3/bootstrap-theme.min.css">
+<link
+	href="${pageContext.request.contextPath }/resources/style/common/bootstrap3/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/js/angularjs/angular.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/js/angularjs/angular-route.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/js/angularjs/angular-resource.js"></script>
-<%-- <script type="text/javascript"
-	src="${pageContext.request.contextPath }/resources/js/admin/index.js"></script> --%>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/resources/js/admin/index.js"></script>
 </style>
 </head>
-<body>
-	<div class="container">
-		<a>创建活动</a>
+<body ng-app="app">
+	<div class="container" ng-controller="AccountCtrl">
+		<div>
+			<table class="table">
+				<tr>
+					<td>aa</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div>
+		<div>
+			<label>编号</label> <input name="number" type="text">
+		</div>
+		<div>
+			<label>名称</label> <input name="name" type="text">
+		</div>
+		<div>
+			<button>添加</button>
+		</div>
 	</div>
 </body>
 </html>

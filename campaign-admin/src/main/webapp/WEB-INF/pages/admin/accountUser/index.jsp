@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html ng-app="accountUser">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,47 +10,68 @@
 
 <script type="text/javascript">
 	var ctx = '${pageContext.request.contextPath	}';
-	var extjsPath = "http://222.22.91.35:8080/ext-4.2.1.883/";
+	//var extjsPath = "http://222.22.91.35:8080/ext-4.2.1.883/";
 </script>
 
-<%-- <link
-	href="${pageContext.request.contextPath }/resources/style/common/bootstrap3/bootstrap.min.css"
-	rel="stylesheet" type="text/css" /> --%>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/common/bootstarp3/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/common/bootstarp3/bootstrap-theme.min.css">
 
-<link
-	href="${pageContext.request.contextPath }/resources/style/common/angular-ui/ui-grid-unstable.css"
-	rel="stylesheet" type="text/css" />
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/resources/js/angularjs/angular.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/resources/js/angularjs/angular-touch.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/resources/js/angularjs/angular-animate.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/resources/js/angularjs/angular-route.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/resources/js/angularjs/angular-resource.js"></script>
 <script
-	src="${pageContext.request.contextPath }/resources/js/angular-ui/csv.js"></script>
+	src="${pageContext.request.contextPath }/resources/common/jquery/jquery-2.1.3.min.js"></script>
 <script
-	src="${pageContext.request.contextPath }/resources/js/angular-ui/pdfmake.js"></script>
-<script
-	src="${pageContext.request.contextPath }/resources/js/angular-ui/vfs_fonts.js"></script>
-<script
-	src="${pageContext.request.contextPath }/resources/js/angular-ui/ui-grid-unstable.js"></script>
+	src="${pageContext.request.contextPath }/resources/common/bootstarp3/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/resources/common/angular/angular.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/resources/common/angular/angular-resource.js"></script>
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/resources/common/angular/ui/ui-bootstrap-page-0.13.0.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/resources/common/angular/ui/ui-bootstrap-page-tpls-0.13.0.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/js/admin/accountUser/index.js"></script>
-<style type="text/css">
-.grid {
-	width: 100%;
-	height: 800px;
-}
-</style>
+<%-- <script type="text/javascript"
+	src="${pageContext.request.contextPath }/resources/common/angular/ui/ui-bootstrap-tpls-0.13.0.js"></script> --%>
 </head>
-<body>
-	<div ng-controller="AccountUserCtrl">
-		<div ui-grid="gridOptions" class="grid" ui-grid-resize-columns
-			ui-grid-move-columns ui-grid-pagination></div>
+<body ng-app="app">
+	<div class="container" ng-controller="AccountUserCtrl">
+		<div>
+			<nav>
+				<table class="table  table-hover ">
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>ID</th>
+							<th>name</th>
+							<th>nickName</th>
+							<th>password</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="u in page.content">
+							<th scope="row">{{$index+1}}</th>
+							<th scope="row">{{u.id}}</th>
+							<td>{{u.name}}</td>
+							<td>{{u.nickName}}</td>
+							<td>{{u.password}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<table>
+					<pagination total-items="totalItems" ng-model="currentPage"
+						max-size="maxSize" class="pagination-sm" items-per-page="pageSize"
+						ng-change="pageChanged()" boundary-links="true"
+						num-pages="page.totalPages" previous-text="前一页" next-text="后一页"
+						first-text="首页" last-text="尾页"></pagination>
+					<pre>Page: {{currentPage}} / {{page.totalPages}}</pre>
+				</table>
+
+			</nav>
+		</div>
+
 	</div>
 </body>
 </html>

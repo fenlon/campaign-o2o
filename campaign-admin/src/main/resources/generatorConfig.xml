@@ -48,13 +48,20 @@
 			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride> 
 			</table> -->
 
-		<table schema="DB2ADMIN" tableName="t_account_user"
-			domainObjectName="AccountUser" enableCountByExample="false"
-			enableDeleteByExample="false" enableSelectByExample="false"
-			enableUpdateByExample="false">
+		<!-- <table schema="DB2ADMIN" tableName="t_account_user" domainObjectName="AccountUser" 
+			enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" 
+			enableUpdateByExample="false"> <property name="useActualColumnNames" value="true" 
+			/> <columnOverride column="gender" javaType="com.fenlonsky.campaign.base.common.enums.Gender"></columnOverride> 
+			<columnOverride column="dateCreated" javaType="org.joda.time.DateTime"></columnOverride> 
+			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride> 
+			</table> -->
+
+		<table schema="DB2ADMIN" tableName="t_store" domainObjectName="Store"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" enableUpdateByExample="false">
 			<property name="useActualColumnNames" value="true" />
-			<columnOverride column="gender"
-				javaType="com.fenlonsky.campaign.base.common.enums.Gender"></columnOverride>
+			<columnOverride column="locationId"
+				javaType="com.fenlonsky.campaign.admin.bean.Location"></columnOverride>
 			<columnOverride column="dateCreated" javaType="org.joda.time.DateTime"></columnOverride>
 			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride>
 		</table>

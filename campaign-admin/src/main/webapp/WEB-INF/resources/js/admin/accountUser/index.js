@@ -1,8 +1,7 @@
-var app = angular.module('accountUser', [ 'ngResource', 'ngTouch', 'ui.grid',
-		'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pagination' ]);
+var app = angular.module('app', [ 'ngResource', 'ui.bootstrap' ]);
 
 app.factory('AccountUser', [ '$resource', function($resource) {
-	var url = ctx + '/account_user/:id/.:format';
+	var url = ctx + '/account_user/:id.:format';
 	return $resource(url, {
 		id : '@id',
 		format : 'json'
@@ -34,78 +33,67 @@ app.factory('AccountUser', [ '$resource', function($resource) {
 		}
 	});
 } ]);
-app
-		.controller(
-				'AccountUserCtrl',
-				[
-						'$scope',
-						'AccountUser',
-						function($scope, AccountUser) {
-							$scope.model = {
-								"name" : "fenlon",
-								"nickName" : "fenlonguy2",
-								"password" : "xfl2",
-								"age" : 18,
-								"number" : "123456",
-								"email" : "fenlon2@gmail.com",
-								"mobile" : "123456",
-								"address" : "ssss",
-								"gender" : "MALE",
-								"mbay" : 10.0,
-								"lockmbay" : 0.0,
-								"account_id" : 0
-							};
-							// AccountUser.save(angular.toJson($scope.model),
-							// function(accountUser) {
-							// });
+app.controller('AccountUserCtrl', [ '$scope', 'AccountUser',
+		function($scope, AccountUser) {
+			$scope.pageSize = 2;
+			$scope.pageNumber = 1;
 
-							// Account.get({
-							// id : 1
-							// }, function(account) {
-							// account.name = "lilei63";
-							// account.$update();
-							// });
-							// $scope.users = AccountUser.query();
+			$scope.page = null;
+			$scope.maxSize = 5;
+			$scope.totalItems = 0;
+			$scope.currentPage = 1;
 
-							// Account.remove({
-							// id : 1
-							// }, function(account) {
-							//
-							// });
+			AccountUser.query({
+				pageNumber : $scope.pageNumber,
+				pageSize : $scope.pageSize
+			}, function(page) {
+				$scope.page = page;
+				$scope.totalItems = page.totalElements;
+			});
 
-							$scope.gridOptions = {
-								enableColumnResizing : true,
-								paginationPageSizes : [ 25, 50, 75 ],
-								paginationPageSize : 10,
-								columnDefs : [
-										{
-											displayName : '用户名',
-											field : 'name'
-										},
-										{
-											displayName : '性别',
-											field : 'gender',
-											cellTemplate : '<span>{{row.entity.gender==="MALE"?"男":"女"}}</span>',
-											enableColumnResizing : false
-										},
-										{
-											displayName : '年龄',
-											field : 'age'
-										},
-										{
-											displayName : '注册时间',
-											field : 'dateCreated',
-											cellTemplate : '<div>{{row.entity.dateCreated | date:"yyyy-MM-dd HH:mm:ss"}}</div>'
-										},
-										{
-											name : 'edit',
-											// field : 'gender',
-											displayName : 'Edit',
-											cellTemplate : '<button id="editBtn" type="button" class="btn-small" ng-click="edit(row.entity)" >{{}}</button> '
-										} ]
-							};
+			// alert($scope.page.totalElements);
 
-							AccountUser.query({}, function(page) {
-								$scope.gridOptions.data = page.content;
-							});
-						} ]);
+			// $scope.totalItems = 64;
+			// $scope.currentPage = 4;
+
+			/*
+			 * $scope.setPage = function(pageNo) { $scope.currentPage = pageNo; };
+			 */
+
+			$scope.pageChanged = function() {
+				$scope.gotoPage($scope.currentPage);
+			};
+			$scope.give = function(a) {
+				alert(a);
+			};
+
+			// var id = null;
+			// Account.save({
+			// name : 'fenlonxiong',
+			// number : '564'
+			// }, function(account) {
+			// id = account.id;
+			// });
+
+			// Account.get({
+			// id : 1
+			// }, function(account) {
+			// account.name = "lilei63";
+			// account.$update();
+			// });
+			// AccountUser.query();
+
+			// Account.remove({
+			// id : 1
+			// }, function(account) {
+			//
+			// });
+
+			$scope.gotoPage = function(n) {
+				$scope.page = AccountUser.query({
+					pageNumber : n,
+					pageSize : $scope.pageSize
+				});
+			};
+
+		} ]);

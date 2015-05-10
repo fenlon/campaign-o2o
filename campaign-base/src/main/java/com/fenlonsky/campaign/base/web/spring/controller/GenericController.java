@@ -90,8 +90,8 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	@RequestMapping(value = "/queryByPage.json", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public Page<T> get(HttpServletRequest request, HttpServletResponse response) {
-		String page = request.getParameter("page");
-		String limit = request.getParameter("limit");
+		String page = request.getParameter("pageNumber");
+		String limit = request.getParameter("pageSize");
 		if (StringUtils.isNotBlank(page)) {
 			this.pageNumber = Integer.valueOf(page) - 1;
 		} else {

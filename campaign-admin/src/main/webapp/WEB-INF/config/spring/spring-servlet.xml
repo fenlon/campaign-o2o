@@ -73,6 +73,7 @@
 	<mvc:resources mapping="/style/**" location="/WEB-INF/resources/style/" />
 	<mvc:resources mapping="/images/**" location="/WEB-INF/resources/images/" />
 	<mvc:resources mapping="/data/**" location="/WEB-INF/resources/data/" />
+	<mvc:resources mapping="/common/**" location="/WEB-INF/resources/common/" />
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource"
