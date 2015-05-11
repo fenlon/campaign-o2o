@@ -3,9 +3,9 @@ package com.fenlonsky.campaign.base.web.spring.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
@@ -15,13 +15,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fenlonsky.campaign.base.model.BaseEntityModel;
+import com.fenlonsky.campaign.base.protocols.APIResult;
 import com.fenlonsky.campaign.base.service.GenericManager;
 
 /**
@@ -37,6 +40,8 @@ import com.fenlonsky.campaign.base.service.GenericManager;
  */
 public abstract class GenericController<T extends BaseEntityModel, PK extends Serializable, M extends GenericManager<T, PK>>
 		extends BaseController {
+	
+	// protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	protected M manager;
 	protected PK id;
@@ -57,13 +62,20 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	 */
 	@RequestMapping(value = "/data.json", method = RequestMethod.POST, consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public T create(@RequestBody T model) {
+	public APIResult<Map<String, Object>> create(@RequestBody @Valid T model, BindingResult result) {
+		
+		Map<String, Object> checkRes = checkIfHasError(result);
+		if (checkRes.size() > 0) {
+			return asError("数据验证失败", checkRes);
+		}
+		
 		this.model = model;
 		DateTime date = DateTime.now();
 		this.model.setDateCreated(date);
 		this.model.setDateModified(date);
 		this.model = this.manager.save(this.model);
-		return this.model;
+		checkRes.put("success", this.model);
+		return asSuccess(checkRes);
 	}
 	
 	/**
@@ -74,9 +86,15 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
 	@ResponseBody
-	public Boolean delete(@PathVariable PK id) throws IOException {
+	public APIResult<String> delete(@PathVariable PK id) {
 		// return this.manager.delete(id);
-		return this.manager.remove(id);
+		try {
+			this.manager.remove(id);
+			return asSuccess("删除数据成功!");
+		} catch (Exception e) {
+			this.logger.error("数据删除失败:", e.fillInStackTrace());
+			return asError("数据删除失败");
+		}
 	}
 	
 	/**
@@ -89,9 +107,7 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	// 1
 	@RequestMapping(value = "/queryByPage.json", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Page<T> get(HttpServletRequest request, HttpServletResponse response) {
-		String page = request.getParameter("pageNumber");
-		String limit = request.getParameter("pageSize");
+	public APIResult<Page<T>> get(@RequestParam("pageNumber") String page, @RequestParam("pageSize") String limit) {
 		if (StringUtils.isNotBlank(page)) {
 			this.pageNumber = Integer.valueOf(page) - 1;
 		} else {
@@ -102,9 +118,13 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 		}
 		this.pageable = new PageRequest(this.pageNumber, this.pageSize,
 				new Sort(Direction.ASC, "id"));
-		this.page = this.manager.findAll(this.pageable);
-		logger.info(this.page);
-		return this.page;
+		try {
+			this.page = this.manager.findAll(this.pageable);
+			return asSuccess(this.page);
+		} catch (Exception e) {
+			logger.info("获取分页数据失败", e.fillInStackTrace());
+			return asError("获取分页数据失败", null);
+		}
 	}
 	
 	/**
@@ -114,9 +134,14 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	 */
 	@RequestMapping(value = "/query.json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<T> get() {
-		List<T> list = this.manager.findAll();
-		return list;
+	public APIResult<List<T>> getAll() {
+		try {
+			List<T> list = this.manager.findAll();
+			return asSuccess(list);
+		} catch (Exception e) {
+			logger.info("获取所有数据失败", e.fillInStackTrace());
+			return asError("获取所有数据失败", null);
+		}
 	}
 	
 	/**
@@ -127,8 +152,15 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public T get(@PathVariable PK id) {
-		return this.manager.findById(id);
+	public APIResult<T> get(@PathVariable PK id) {
+		
+		try {
+			T t = this.manager.findById(id);
+			return asSuccess(t);
+		} catch (Exception e) {
+			logger.info("获取数据失败:", e.fillInStackTrace());
+			return asError("获取数据失败", null);
+		}
 		
 	}
 	
@@ -141,11 +173,15 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json", consumes = "application/json")
 	@ResponseBody
-	public T update(@PathVariable PK id, @RequestBody T model) {
-		model.setId(Long.valueOf(id.toString()));
-		model.setDateModified(DateTime.now());// 更新修改时间
-		this.model = this.manager.update(model);
-		return this.model;
+	public APIResult<T> update(@PathVariable PK id, @RequestBody T model) {
+		try {
+			model.setId(Long.valueOf(id.toString()));
+			model.setDateModified(DateTime.now());// 更新修改时间
+			this.model = this.manager.update(model);
+			return asSuccess(this.model);
+		} catch (Exception e) {
+			logger.info("跟新数据失败:", e.fillInStackTrace());
+			return asError("跟新数据失败", null);
+		}
 	}
-	
 }
