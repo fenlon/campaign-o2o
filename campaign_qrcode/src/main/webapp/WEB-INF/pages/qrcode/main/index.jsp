@@ -10,7 +10,7 @@
 
 <script type="text/javascript">
 	var ctx = '${pageContext.request.contextPath	}';
-	var extjsPath = "http://222.22.91.35:8080/ext-4.2.1.883/";
+	//var extjsPath = "http://222.22.91.35:8080/ext-4.2.1.883/";
 </script>
 
 <link
