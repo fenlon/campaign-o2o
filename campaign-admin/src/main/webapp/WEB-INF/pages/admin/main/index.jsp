@@ -10,26 +10,23 @@
 
 <script type="text/javascript">
 	var ctx = '${pageContext.request.contextPath	}';
-	//var extjsPath = "http://222.22.91.35:8080/ext-4.2.1.883/";
 </script>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/common/bootstarp3/bootstrap.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/common/bootstarp3/bootstrap-theme.min.css">
+
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/resources/js/angularjs/angular.js"></script>
+	src="${pageContext.request.contextPath }/resources/common/angular/angular.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/resources/js/angularjs/angular-route.js"></script>
+	src="${pageContext.request.contextPath }/resources/common/angular/angular-route.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/resources/js/angularjs/angular-resource.js"></script>
-<%-- <script type="text/javascript"
-	src="${pageContext.request.contextPath }/resources/js/admin/index.js"></script> --%>
-</style>
+	src="${pageContext.request.contextPath }/resources/common/angular/angular-route.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/resources/common/angular/angular-resource.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/resources/js/admin/main/index.js"></script>
 </head>
-<body>
-	<div class="container">
-		<a>创建活动</a>
+<body ng-app="myApp">
+	<div ng-controller="TextController">
+		<div ng-view></div>
 	</div>
 </body>
 </html>
