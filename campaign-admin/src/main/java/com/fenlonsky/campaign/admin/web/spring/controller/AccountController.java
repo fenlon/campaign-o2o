@@ -19,4 +19,5 @@ public class AccountController extends GenericController<Account, Long, AccountM
 		this.accountService = accountService;
 		this.manager = accountService;
 	}
+	
 }

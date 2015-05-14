@@ -21,7 +21,7 @@ public class AccountUserController extends GenericController<AccountUser, Long, 
 		this.manager = accountUserManager;
 	}
 	
-	@RequestMapping(value = "index.html", method = RequestMethod.GET)
+	@RequestMapping(value = "index", method = RequestMethod.GET)
 	public String index() {
 		return "/admin/accountUser/index";
 	}

@@ -2,7 +2,7 @@ package com.fenlonsky.campaign.admin.bean;
 
 import org.joda.time.DateTime;
 
-import com.fenlonsky.campaign.admin.enums.CampaignStatus;
+import com.fenlonsky.campaign.base.common.enums.CampaignStatus;
 import com.fenlonsky.campaign.base.model.BaseEntityModel;
 
 public class Campaign extends BaseEntityModel {
