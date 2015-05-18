@@ -196,4 +196,9 @@ public class GenericDaoImpl<T extends BaseEntityModel> implements GenericDao<T, 
 		return this.template.delete(type.getName() + "." + REMOVE_BY_ID, id) > 0;
 	}
 	
+	@Override
+	public T findByCondition(String statement, Map<String, Object> params) {
+		return this.template.selectOne(type.getName() + "." + statement, params);
+	}
+	
 }
