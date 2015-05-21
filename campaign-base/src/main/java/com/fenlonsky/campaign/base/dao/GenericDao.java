@@ -1,6 +1,7 @@
 package com.fenlonsky.campaign.base.dao;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -31,5 +32,7 @@ public interface GenericDao<T extends BaseEntityModel, PK extends Serializable>
 	T updateById(T record);
 	
 	Boolean remove(PK id);
+	
+	T findByCondition(String statement, Map<String, Object> params);
 	
 }

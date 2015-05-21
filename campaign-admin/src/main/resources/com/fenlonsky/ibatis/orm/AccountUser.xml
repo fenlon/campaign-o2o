@@ -46,7 +46,7 @@
 		t_account_user
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
-	<insert id="create" parameterType="com.fenlonsky.campaign.admin.bean.AccountUser">
+	<insert id="insert" parameterType="com.fenlonsky.campaign.admin.bean.AccountUser">
 		insert into t_account_user
 		(id, name, nickName,
 		password, age, number,
@@ -67,7 +67,7 @@
 		#{dateCreated,jdbcType=TIMESTAMP}, #{dateModified,jdbcType=TIMESTAMP}
 		)
 	</insert>
-	<insert id="createSelective" parameterType="com.fenlonsky.campaign.admin.bean.AccountUser">
+	<insert id="insertSelective" parameterType="com.fenlonsky.campaign.admin.bean.AccountUser">
 		insert into t_account_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -249,4 +249,18 @@
 		#{dateModified,jdbcType=TIMESTAMP}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+	<select id="findByName" parameterType="map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_account_user
+		where name = #{name,jdbcType=VARCHAR}
+	</select>
+
+	<select id="findByNameAndPwd" parameterType="map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_account_user
+		where name = #{name,jdbcType=VARCHAR} and password
+		= #{password,jdbcType=VARCHAR}
+	</select>
 </mapper>

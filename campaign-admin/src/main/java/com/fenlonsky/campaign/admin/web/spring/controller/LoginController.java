@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.fenlonsky.campaign.admin.bean.AccountUser;
 import com.fenlonsky.campaign.admin.service.AccountUserManager;
+import com.fenlonsky.campaign.commons.utils.FenlonDigestUtils;
 
 @Controller
 @RequestMapping(value = "/login/")
@@ -33,7 +34,12 @@ public class LoginController {
 		if (user == null) {
 			return "";
 		}
+		String a = FenlonDigestUtils.pbeEncrypt(user.getId() + "");
+		user.setEncodeStr(a);
+		// session中user对象不保存其Id(如果ID要是String类型就不存在着encodeStr这个属性了)
+		user.setId(null);
 		session.setAttribute("currentUser", user);
+		System.out.println(user.getEncodeStr());
 		return "redirect:/index.htm";
 	}
 	

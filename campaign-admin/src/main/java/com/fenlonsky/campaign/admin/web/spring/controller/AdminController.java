@@ -15,14 +15,4 @@ public class AdminController extends BaseController {
 		return "/admin/main/index";
 	}
 	
-	@RequestMapping(value = "login", method = RequestMethod.GET)
-	public String login() {
-		return "/admin/main/login";
-	}
-	
-	@RequestMapping(value = "register", method = RequestMethod.GET)
-	public String register() {
-		return "/admin/main/register";
-	}
-	
 }

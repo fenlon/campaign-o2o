@@ -61,6 +61,19 @@ public class GenericManagerImpl<T extends BaseEntityModel, PK extends Serializab
 	}
 	
 	@Override
+	public T saveSelective(T entity) {
+		DateTime date = DateTime.now();
+		Long id = entity.getId();
+		if (id == null) {
+			entity.setDateCreated(date);
+		} else {
+			entity.setDateModified(date);
+		}
+		return this.dao.saveSelective(entity);
+		
+	}
+	
+	@Override
 	public List<T> save(Iterable<T> entities) {
 		return this.dao.save(entities);
 	}

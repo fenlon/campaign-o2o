@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.fenlonsky.campaign.base.web.spring.controller.BaseController;
 
 @Controller
-@RequestMapping(value = "/storeCampaign/")
+@RequestMapping(value = "/store_campaign/")
 public class StoreCampaignController extends BaseController {
 	
 	@RequestMapping(value = "index", method = RequestMethod.GET)

@@ -74,7 +74,7 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 		this.model.setDateCreated(date);
 		this.model.setDateModified(date);
 		this.model = this.manager.save(this.model);
-		checkRes.put("success", this.model);
+		checkRes.put("model", this.model);
 		return asSuccess(checkRes);
 	}
 	

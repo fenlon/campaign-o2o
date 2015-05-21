@@ -15,6 +15,8 @@ public class BaseEntityModel extends BaseModel {
 	
 	String entityName;
 	
+	String encodeStr;
+	
 	/**
 	 * 实体创建时间
 	 */
@@ -63,6 +65,14 @@ public class BaseEntityModel extends BaseModel {
 	
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
+	}
+	
+	public String getEncodeStr() {
+		return encodeStr;
+	}
+	
+	public void setEncodeStr(String encodeStr) {
+		this.encodeStr = encodeStr;
 	}
 	
 	public Long getId() {

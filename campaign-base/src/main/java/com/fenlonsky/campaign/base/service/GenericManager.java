@@ -56,6 +56,15 @@ public interface GenericManager<T extends BaseEntityModel, PK extends Serializab
 	public T save(T entity);
 	
 	/**
+	 * save use data which not null
+	 * 
+	 * @param entity
+	 *            entity for saving
+	 * @return saved domain entity
+	 */
+	public T saveSelective(T entity);
+	
+	/**
 	 * 
 	 * @param entities
 	 * @return

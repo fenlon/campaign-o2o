@@ -1,5 +1,11 @@
 package com.fenlonsky.campaign.admin.bean;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.fenlonsky.campaign.base.common.enums.Gender;
 import com.fenlonsky.campaign.base.model.BaseEntityModel;
 
@@ -15,11 +21,21 @@ public abstract class UserInfo extends BaseEntityModel {
 	
 	private static final long serialVersionUID = -8138602088316927632L;
 	/** 用户名 **/
+	@Length(min = 5, max = 12, message = "用户名必须为5-12位")
+	@NotEmpty(message = "用户名不能为空")
+	@NotBlank(message = "用户名不能为空")
+	@Pattern(regexp = "[a-zA-Z]{1}[a-zA-Z0-9]+", message = "用户名首位必须为字符")
 	private String name;
+	
 	/** 呢称 **/
 	private String nickName;
+	
 	/** 密码 **/
+	@Length(min = 5, max = 12, message = "密码必须为5-12位")
+	@NotEmpty(message = "密码不能为空")
+	@NotBlank(message = "密码不能为空")
 	private String password;
+	
 	/** 年龄 **/
 	private Integer age;
 	/** 编号 **/

@@ -25,4 +25,5 @@ public class AccountUserController extends GenericController<AccountUser, Long, 
 	public String index() {
 		return "/admin/accountUser/index";
 	}
+	
 }

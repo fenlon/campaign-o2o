@@ -37,7 +37,6 @@ app.controller('AccountUserCtrl', [ '$scope', 'AccountUser',
 		function($scope, AccountUser) {
 			$scope.pageSize = 2;
 			$scope.pageNumber = 1;
-
 			$scope.page = null;
 			$scope.maxSize = 5;
 			$scope.totalItems = 0;
@@ -46,9 +45,11 @@ app.controller('AccountUserCtrl', [ '$scope', 'AccountUser',
 			AccountUser.query({
 				pageNumber : $scope.pageNumber,
 				pageSize : $scope.pageSize
-			}, function(page) {
-				$scope.page = page;
-				$scope.totalItems = page.totalElements;
+			}, function(result) {
+				if (result.code == "SUCCESS") {
+					$scope.page = result.result;
+					$scope.totalItems = $scope.page.totalElements;
+				}
 			});
 
 			// alert($scope.page.totalElements);
@@ -90,9 +91,13 @@ app.controller('AccountUserCtrl', [ '$scope', 'AccountUser',
 			// });
 
 			$scope.gotoPage = function(n) {
-				$scope.page = AccountUser.query({
+				AccountUser.query({
 					pageNumber : n,
 					pageSize : $scope.pageSize
+				}, function(result) {
+					if (result.code == "SUCCESS") {
+						$scope.page = result.result;
+					}
 				});
 			};
 

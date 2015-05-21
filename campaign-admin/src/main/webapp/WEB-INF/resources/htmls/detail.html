@@ -1,0 +1,11 @@
+<div><strong>项目:</strong>{{message.subject}}</div>
+<div><strong>发送者:</strong>{{message.sender}}</div>
+<div><strong>日期:</strong>{{message.date}}</div>
+<div>
+    <strong>To:</strong>
+  <span ng-repeat="recipient in message.recipients">
+    {{recipient}}
+  </span>
+</div>
+<div>{{message.message}}</div>
+<a href="#/">回到列表</a>

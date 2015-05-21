@@ -10,18 +10,8 @@
 
 <script type="text/javascript">
 	var ctx = '${pageContext.request.contextPath	}';
-	//var extjsPath = "http://222.22.91.35:8080/ext-4.2.1.883/";
 </script>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/common/bootstarp3/bootstrap.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/common/bootstarp3/bootstrap-theme.min.css">
-
-<script
-	src="${pageContext.request.contextPath }/resources/common/jquery/jquery-2.1.3.min.js"></script>
-<script
-	src="${pageContext.request.contextPath }/resources/common/bootstarp3/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/common/angular/angular.js"></script>
 <script type="text/javascript"

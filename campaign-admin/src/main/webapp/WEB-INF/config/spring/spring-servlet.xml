@@ -33,6 +33,18 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/user_info/**" />
+			<mvc:mapping path="/**/*.xls" />
+			<mvc:mapping path="/**/*.pdf" />
+
+			<bean
+				class="com.fenlonsky.campaign.admin.web.spring.intercept.LoginInterceptor">
+				<!-- <property name="mappingURL"> <list> <value></value> </list> </property> -->
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<!-- 以下 validator ConversionService 在使用 mvc:annotation-driven 会 自动注册 -->
 	<bean id="validator"
@@ -71,6 +83,7 @@
 		<property name="mediaTypes">
 			<map>
 				<entry key="html" value="text/html;charset=UTF-8" />
+				<entry key="htm" value="text/html;charset=UTF-8" />
 				<entry key="json" value="application/json;charset=UTF-8" />
 				<entry key="jsonp" value="application/javascript;charset=UTF-8" />
 			</map>
