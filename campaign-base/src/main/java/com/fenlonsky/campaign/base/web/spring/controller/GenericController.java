@@ -104,7 +104,6 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	 * @param response
 	 * @return
 	 */
-	// 1
 	@RequestMapping(value = "/queryByPage.json", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public APIResult<Page<T>> get(@RequestParam("pageNumber") String page, @RequestParam("pageSize") String limit) {
@@ -122,7 +121,7 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 			this.page = this.manager.findAll(this.pageable);
 			return asSuccess(this.page);
 		} catch (Exception e) {
-			logger.info("获取分页数据失败", e.fillInStackTrace());
+			logger.error("获取分页数据失败", e.fillInStackTrace());
 			return asError("获取分页数据失败", null);
 		}
 	}

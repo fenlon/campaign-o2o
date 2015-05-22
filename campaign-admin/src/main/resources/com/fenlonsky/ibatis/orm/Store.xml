@@ -9,10 +9,13 @@
 		<result column="authCode" property="authCode" jdbcType="CHAR" />
 		<result column="enable" property="enable" jdbcType="BIT" />
 		<result column="active" property="active" jdbcType="BIT" />
-		<result column="locationId" property="location.id" jdbcType="BIGINT" />
 		<result column="deleted" property="deleted" jdbcType="BIT" />
 		<result column="dateCreated" property="dateCreated" jdbcType="TIMESTAMP" />
 		<result column="dateModified" property="dateModified" jdbcType="TIMESTAMP" />
+		<association column="locationId" property="location"
+			javaType="com.fenlonsky.campaign.admin.bean.Location" select="com.fenlonsky.campaign.admin.bean.Location.selectById">
+			<id column="locationId" property="id"></id>
+		</association>
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, userId, number, name, authCode, enable, active,
@@ -26,6 +29,15 @@
 		from t_store
 		where id = #{id,jdbcType=BIGINT}
 	</select>
+
+	<select id="findAllByPage" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from t_store
+		where deleted = false
+	</select>
+
 	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from t_store
 		where
