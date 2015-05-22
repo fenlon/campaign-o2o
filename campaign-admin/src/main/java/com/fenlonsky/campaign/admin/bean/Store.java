@@ -17,7 +17,7 @@ public class Store extends BaseEntityModel {
 	/** 是否禁用 **/
 	private Boolean enable;
 	/** 是否激活 **/
-	private Boolean activi;
+	private Boolean active;
 	/** 门店位置 **/
 	private Location location;
 	
@@ -53,14 +53,6 @@ public class Store extends BaseEntityModel {
 		this.enable = enable;
 	}
 	
-	public Boolean getActivi() {
-		return activi;
-	}
-	
-	public void setActivi(Boolean activi) {
-		this.activi = activi;
-	}
-	
 	public Location getLocation() {
 		return location;
 	}
@@ -75,5 +67,13 @@ public class Store extends BaseEntityModel {
 	
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	
+	public Boolean getActive() {
+		return active;
+	}
+	
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }

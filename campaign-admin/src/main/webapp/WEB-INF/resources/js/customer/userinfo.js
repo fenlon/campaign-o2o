@@ -1,4 +1,4 @@
-angular.module('userModule', [ 'ngRoute' ])
+angular.module('userModule', [ 'ngRoute', 'ng' ])
 
 .factory('UserInfo', function($http, $templateCache) {
 	var service = { // our factory definition
@@ -12,6 +12,40 @@ angular.module('userModule', [ 'ngRoute' ])
 	};
 	return service;
 })
+
+.factory('Store', [ '$resource', function($resource) {
+	var url = ctx + '/store/:id.:format';
+	return $resource(url, {
+		id : '@id',
+		format : 'json'
+	}, {
+		'get' : {
+			method : 'GET'
+		},
+		'save' : {
+			url : 'data.json',
+			method : 'POST'
+		},
+		'update' : {
+			method : "PUT"
+		},
+		'query' : {
+			url : "queryByPage.json",
+			method : 'GET'
+		},
+		// 'query' : {
+		// url : "account/query.json",
+		// method : 'GET',
+		// isArray : true
+		// },
+		'remove' : {
+			method : 'DELETE'
+		},
+		'delete' : {
+			method : 'DELETE'
+		}
+	});
+} ])
 
 .controller(
 		'BaseInfoController',
@@ -48,6 +82,16 @@ angular.module('userModule', [ 'ngRoute' ])
 .controller('StoreController', function($scope, $routeParams) {
 	$scope.name = "ChapterController";
 	$scope.params = $routeParams;
+	$scope.store = null;
+	$scope.isWarnning = false;
+
+	$scope.createStore = function() {
+		if ($scope.store == null || $scope.store == 'undefined') {
+			// 对于其他方式做处理
+			$scope.isWarnning = true;
+			return;
+		}
+	};
 })
 
 .config(function($routeProvider, $locationProvider) {
