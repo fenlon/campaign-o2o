@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<button type="button" class="btn btn-primary" data-toggle="modal"<<<<<<<
-	HEAD data-target="#addStoreModel" data-whatever="@mdo">添加门店</button>
 <button type="button" class="btn btn-primary" data-toggle="modal"
-	data-target="#addStoreModel" data-whatever="@fat">Open modal
-	for @fat</button>
-<button type="button" class="btn btn-primary" data-toggle="modal"
-	data-target="#addStoreModel" data-whatever="@getbootstrap">Open
-	modal for @getbootstrap</button>
+	data-target="#addStoreModel" data-whatever="@mdo">添加门店</button>
+
+
 
 <div>
 	<nav>

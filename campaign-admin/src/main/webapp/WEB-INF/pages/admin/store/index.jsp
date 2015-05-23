@@ -22,12 +22,12 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/common/angular/ui/ui-bootstrap-page-tpls-0.13.0.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/resources/js/admin/accountUser/index.js"></script>
+	src="${pageContext.request.contextPath }/resources/js/admin/store/index.js"></script>
 <%-- <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/common/angular/ui/ui-bootstrap-tpls-0.13.0.js"></script> --%>
 </head>
 <body ng-app="app">
-	<div class="container" ng-controller="AccountUserCtrl">
+	<div class="container" ng-controller="StoreCtrl">
 		<div>
 			<nav>
 				<table class="table  table-hover ">
@@ -45,7 +45,7 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="s in page.content">
-							<th scope="row">{{(pageSize*(currentPage-1))$index+1}}</th>
+							<th scope="row">{{(pageSize*(currentPage-1))+$index+1}}</th>
 							<th scope="row">{{s.id}}</th>
 							<td>{{s.number}}</td>
 							<td>{{s.name}}</td>
@@ -64,10 +64,8 @@
 						first-text="首页" last-text="尾页"></pagination>
 					<pre>Page: {{currentPage}} / {{page.totalPages}}</pre>
 				</table>
-
 			</nav>
 		</div>
-
 	</div>
 </body>
 </html>

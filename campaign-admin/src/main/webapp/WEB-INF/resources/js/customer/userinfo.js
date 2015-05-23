@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 angular.module('userModule', [ 'ngRoute', 'ngResource', 'ui.bootstrap' ])
-=======
-angular.module('userModule', [ 'ngRoute', 'ng' ])
->>>>>>> refs/remotes/origin/master
 
 .factory('UserInfo', function($http, $templateCache) {
 	var service = { // our factory definition
@@ -18,7 +14,6 @@ angular.module('userModule', [ 'ngRoute', 'ng' ])
 })
 
 .factory('Store', [ '$resource', function($resource) {
-<<<<<<< HEAD
 	var storeUrl = ctx + '/store/';
 	var url = storeUrl + '/:id.:format';
 	return $resource(url, {
@@ -39,32 +34,11 @@ angular.module('userModule', [ 'ngRoute', 'ng' ])
 			url : storeUrl + "queryByPage.json",
 			method : 'GET'
 		},
-=======
-	var url = ctx + '/store/:id.:format';
-	return $resource(url, {
-		id : '@id',
-		format : 'json'
-	}, {
-		'get' : {
-			method : 'GET'
-		},
-		'save' : {
-			url : 'data.json',
-			method : 'POST'
-		},
-		'update' : {
-			method : "PUT"
-		},
-		'query' : {
-			url : "queryByPage.json",
-			method : 'GET'
-		},
 		// 'query' : {
 		// url : "account/query.json",
 		// method : 'GET',
 		// isArray : true
 		// },
->>>>>>> refs/remotes/origin/master
 		'remove' : {
 			method : 'DELETE'
 		},
@@ -106,7 +80,6 @@ angular.module('userModule', [ 'ngRoute', 'ng' ])
 	$scope.params = $routeParams;
 })
 
-<<<<<<< HEAD
 .controller('StoreController',
 		function($scope, $routeParams, $location, Store) {
 			$scope.store = null;
@@ -163,22 +136,6 @@ angular.module('userModule', [ 'ngRoute', 'ng' ])
 				});
 			};
 		})
-=======
-.controller('StoreController', function($scope, $routeParams) {
-	$scope.name = "ChapterController";
-	$scope.params = $routeParams;
-	$scope.store = null;
-	$scope.isWarnning = false;
-
-	$scope.createStore = function() {
-		if ($scope.store == null || $scope.store == 'undefined') {
-			// 对于其他方式做处理
-			$scope.isWarnning = true;
-			return;
-		}
-	};
-})
->>>>>>> refs/remotes/origin/master
 
 .config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/', {

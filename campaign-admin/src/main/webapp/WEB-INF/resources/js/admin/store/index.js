@@ -50,42 +50,9 @@ app.controller('StoreCtrl', [ '$scope', 'Store', function($scope, Store) {
 			$scope.totalItems = $scope.page.totalElements;
 		}
 	});
-
-	// alert($scope.page.totalElements);
-
-	// $scope.totalItems = 64;
-	// $scope.currentPage = 4;
-
-	/*
-	 * $scope.setPage = function(pageNo) { $scope.currentPage = pageNo; };
-	 */
-
 	$scope.pageChanged = function() {
 		$scope.gotoPage($scope.currentPage);
 	};
-
-	// var id = null;
-	// Account.save({
-	// name : 'fenlonxiong',
-	// number : '564'
-	// }, function(account) {
-	// id = account.id;
-	// });
-
-	// Account.get({
-	// id : 1
-	// }, function(account) {
-	// account.name = "lilei63";
-	// account.$update();
-	// });
-	// AccountUser.query();
-
-	// Account.remove({
-	// id : 1
-	// }, function(account) {
-	//
-	// });
-
 	$scope.gotoPage = function(n) {
 		Store.query({
 			pageNumber : n,
