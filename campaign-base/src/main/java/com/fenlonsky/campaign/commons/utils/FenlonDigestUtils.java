@@ -97,7 +97,6 @@ public final class FenlonDigestUtils {
 				
 				SecretKey key = SecretKeyFactory.getInstance("PBEWithMD5AndDES")
 						.generateSecret(keySpec);
-				System.out.println(key.getAlgorithm());
 				Cipher ecipher = Cipher.getInstance(key.getAlgorithm());
 				ecipher.init(Cipher.ENCRYPT_MODE, key, paramSpec);
 				
@@ -110,7 +109,7 @@ public final class FenlonDigestUtils {
 				return res;
 				
 			} catch (Exception e) {
-				System.out.println(e);
+				logger.error("encode：", e.fillInStackTrace());
 			}
 			
 			return "";

@@ -13,6 +13,12 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/common/angular/angular-route.js"></script>
 <script type="text/javascript"
+	src="${pageContext.request.contextPath }/resources/common/angular/angular-resource.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/resources/common/angular/ui/ui-bootstrap-page-0.13.0.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/resources/common/angular/ui/ui-bootstrap-page-tpls-0.13.0.js"></script>
+<script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/js/customer/userinfo.js"></script>
 <style type="text/css">
 /* Custom Styles */

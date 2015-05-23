@@ -45,7 +45,7 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="s in page.content">
-							<th scope="row">{{$index+1}}</th>
+							<th scope="row">{{(pageSize*(currentPage-1))$index+1}}</th>
 							<th scope="row">{{s.id}}</th>
 							<td>{{s.number}}</td>
 							<td>{{s.name}}</td>

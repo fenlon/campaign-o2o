@@ -2,16 +2,56 @@
 	pageEncoding="UTF-8"%>
 
 <button type="button" class="btn btn-primary" data-toggle="modal"
-	data-target="#exampleModal" data-whatever="@mdo">添加门店</button>
+	data-target="#addStoreModel" data-whatever="@mdo">添加门店</button>
 <button type="button" class="btn btn-primary" data-toggle="modal"
-	data-target="#exampleModal" data-whatever="@fat">Open modal
+	data-target="#addStoreModel" data-whatever="@fat">Open modal
 	for @fat</button>
 <button type="button" class="btn btn-primary" data-toggle="modal"
-	data-target="#exampleModal" data-whatever="@getbootstrap">Open
+	data-target="#addStoreModel" data-whatever="@getbootstrap">Open
 	modal for @getbootstrap</button>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel" aria-hidden="true"
+<div>
+	<nav>
+		<table class="table  table-hover ">
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>ID</th>
+					<th>门店编号</th>
+					<th>门店名称</th>
+					<th>授权码</th>
+					<th>状态</th>
+					<th>是否禁用</th>
+					<th>地址</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="s in page.content">
+					<th scope="row">{{(pageSize*(currentPage-1))+$index+1}}</th>
+					<th scope="row">{{s.id}}</th>
+					<td>{{s.number}}</td>
+					<td>{{s.name}}</td>
+					<td>{{s.authCode}}</td>
+					<td>{{s.active}}</td>
+					<td>{{s.enable}}</td>
+					<td>{{s.location.address}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<table>
+			<pagination total-items="totalItems" ng-model="currentPage"
+				max-size="maxSize" class="pagination-sm" items-per-page="pageSize"
+				ng-change="pageChanged()" boundary-links="true"
+				num-pages="page.totalPages" previous-text="前一页" next-text="后一页"
+				first-text="首页" last-text="尾页"></pagination>
+			<pre>Page: {{currentPage}} / {{page.totalPages}}</pre>
+		</table>
+
+	</nav>
+</div>
+
+<div class="modal fade" id="addStoreModel" tabindex="-1" role="dialog"
+	aria-labelledby="addStoreModelLabel" aria-hidden="true"
 	ng-controller="StoreController">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -20,7 +60,7 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="exampleModalLabel">添加门店</h4>
+				<h4 class="modal-title" id="addStoreModelLabel">添加门店</h4>
 			</div>
 			<div class="modal-body">
 				<form name="storeForm">
@@ -52,8 +92,8 @@
 							<div class="col-md-8 column">
 								<input type="text" class="form-control" id="store-address"
 									autocomplete="off" ng-required="true" ng-minlength="5"
-									name="address" ng-maxlength="20" ng-model="store.address"
-									placeholder="门店地址">
+									name="address" ng-maxlength="20"
+									ng-model="store.location.address" placeholder="门店地址">
 							</div>
 							<div class="col-md-4 column">
 								<div
@@ -91,3 +131,4 @@
 		</div>
 	</div>
 </div>
+

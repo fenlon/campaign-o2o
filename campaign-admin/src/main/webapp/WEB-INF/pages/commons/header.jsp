@@ -20,7 +20,7 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li class="active"><a
-					href="http://120.25.230.36:8080/campaign_qrcode/">二维码<span
+					href="http://120.25.230.36:8080/campaign_qrcode/" target="_blank">二维码<span
 						class="sr-only">(current)</span></a></li>
 				<li><a href="#">Link</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"

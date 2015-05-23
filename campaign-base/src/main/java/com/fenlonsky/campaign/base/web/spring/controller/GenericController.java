@@ -60,7 +60,7 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/data.json", method = RequestMethod.POST, consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/data", method = RequestMethod.POST, consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public APIResult<Map<String, Object>> create(@RequestBody @Valid T model, BindingResult result) {
 		
@@ -104,17 +104,25 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value = "/queryByPage.json", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/queryByPage", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public APIResult<Page<T>> get(@RequestParam("pageNumber") String page, @RequestParam("pageSize") String limit) {
-		if (StringUtils.isNotBlank(page)) {
-			this.pageNumber = Integer.valueOf(page) - 1;
-		} else {
+	public APIResult<Page<T>> get(@RequestParam(value = "pageNumber", required = false) String page, @RequestParam(value = "pageSize", required = false) String limit) {
+		if (page == null) {
 			this.pageNumber = 0;
+		} else {
+			if (StringUtils.isNotBlank(page)) {
+				this.pageNumber = Integer.valueOf(page) - 1;
+			} else {
+				this.pageNumber = 0;
+			}
 		}
-		if (StringUtils.isNotBlank(limit)) {
-			this.pageSize = Integer.valueOf(limit);
+		
+		if (limit != null) {
+			if (StringUtils.isNotBlank(limit)) {
+				this.pageSize = Integer.valueOf(limit);
+			}
 		}
+		
 		this.pageable = new PageRequest(this.pageNumber, this.pageSize,
 				new Sort(Direction.ASC, "id"));
 		try {
