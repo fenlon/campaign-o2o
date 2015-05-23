@@ -24,7 +24,7 @@ angular.module('userModule', [ 'ngRoute', 'ngResource', 'ui.bootstrap' ])
 			method : 'GET'
 		},
 		'save' : {
-			url : storeUrl + '/data.json',
+			url : storeUrl + 'data.json',
 			method : 'POST'
 		},
 		'update' : {
@@ -85,22 +85,30 @@ angular.module('userModule', [ 'ngRoute', 'ngResource', 'ui.bootstrap' ])
 			$scope.store = null;
 			$scope.isWarnning = false;
 
-			$scope.pageSize = 2;
+			$scope.pageSize = 3;
 			$scope.pageNumber = 1;
 			$scope.page = null;
 			$scope.maxSize = 5;
 			$scope.totalItems = 0;
 			$scope.currentPage = 1;
 
-			Store.query({
-				pageNumber : $scope.pageNumber,
-				pageSize : $scope.pageSize
-			}, function(result) {
-				if (result.code == "SUCCESS") {
-					$scope.page = result.result;
-					$scope.totalItems = $scope.page.totalElements;
-				}
-			});
+			queryStore($scope.pageNumber);
+
+			/**
+			 * 查询门店
+			 */
+			function queryStore(pageNum) {
+				Store.query({
+					pageNumber : pageNum,
+					pageSize : $scope.pageSize
+				}, function(result) {
+					if (result.code == "SUCCESS") {
+						$scope.page = result.result;
+						$scope.totalItems = $scope.page.totalElements;
+					}
+				});
+			}
+
 			/**
 			 * 页码
 			 */
@@ -109,14 +117,7 @@ angular.module('userModule', [ 'ngRoute', 'ngResource', 'ui.bootstrap' ])
 			};
 
 			$scope.gotoPage = function(n) {
-				Store.query({
-					pageNumber : n,
-					pageSize : $scope.pageSize
-				}, function(result) {
-					if (result.code == "SUCCESS") {
-						$scope.page = result.result;
-					}
-				});
+				queryStore(n);
 			};
 
 			$scope.createStore = function() {
@@ -125,7 +126,6 @@ angular.module('userModule', [ 'ngRoute', 'ngResource', 'ui.bootstrap' ])
 					$scope.isWarnning = true;
 					return;
 				}
-
 				// 保存Store
 				Store.save($scope.store, function(result) {
 					if (result.success) {
@@ -133,6 +133,16 @@ angular.module('userModule', [ 'ngRoute', 'ngResource', 'ui.bootstrap' ])
 						return;
 					}
 					alert(result.code + "--" + result.message);
+				});
+			};
+
+			$scope.deleteStore = function(id) {
+				Store.remove({
+					id : id
+				}, function(result) {
+					if (result.success) {
+						queryStore($scope.currentPage);
+					}
 				});
 			};
 		})
