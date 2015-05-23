@@ -51,7 +51,6 @@ public class UserInfoController extends GenericController<AccountUser, Long, Acc
 			return null;
 		}
 		String encodeStr = FenlonDigestUtils.pbeDecrypt(userId);
-		System.out.println(encodeStr);
 		Long id = Long.valueOf(encodeStr);
 		return this.accountUserManager.findById(id);
 	}
