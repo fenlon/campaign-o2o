@@ -63,11 +63,20 @@
 			<columnOverride column="dateCreated" javaType="org.joda.time.DateTime"></columnOverride> 
 			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride> 
 			</table> -->
-		<table schema="DB2ADMIN" tableName="t_location"
-			domainObjectName="Location" enableCountByExample="false"
+		<!-- <table schema="DB2ADMIN" tableName="t_location" domainObjectName="Location" 
+			enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" 
+			enableUpdateByExample="false"> <property name="useActualColumnNames" value="true" 
+			/> <columnOverride column="dateCreated" javaType="org.joda.time.DateTime"></columnOverride> 
+			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride> 
+			</table> -->
+
+		<table schema="DB2ADMIN" tableName="t_store_campaign"
+			domainObjectName="StoreCampaign" enableCountByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			enableUpdateByExample="false">
 			<property name="useActualColumnNames" value="true" />
+			<columnOverride column="status"
+				javaType="com.fenlonsky.campaign.base.common.enums.CampaignStatus"></columnOverride>
 			<columnOverride column="dateCreated" javaType="org.joda.time.DateTime"></columnOverride>
 			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride>
 		</table>

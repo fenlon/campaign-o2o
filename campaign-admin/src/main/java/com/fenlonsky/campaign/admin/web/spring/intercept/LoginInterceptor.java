@@ -28,7 +28,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		if (request.getSession().getAttribute("currentUser") == null) {
 			// 不知道为什那么无法转发，只能重定向
 			response.sendRedirect(request.getContextPath()
-					+ "/login/index.html");
+					+ "/login/index.htm");
 			return false;
 		}
 		

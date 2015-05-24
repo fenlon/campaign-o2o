@@ -12,8 +12,8 @@ public class Campaign extends BaseEntityModel {
 	private String number;
 	/** 活动名称 **/
 	private String name;
-	/** 用户编号 **/
-	private String userNumber;
+	/** 用户ID **/
+	private String userId;
 	/** 开始时间 **/
 	private DateTime startTime;
 	/** 结束时间 **/
@@ -39,12 +39,12 @@ public class Campaign extends BaseEntityModel {
 		this.name = name;
 	}
 	
-	public String getUserNumber() {
-		return userNumber;
+	public String getUserId() {
+		return userId;
 	}
 	
-	public void setUserNumber(String userNumber) {
-		this.userNumber = userNumber;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	public DateTime getStartTime() {
@@ -78,4 +78,5 @@ public class Campaign extends BaseEntityModel {
 	public void setDescribtion(String describtion) {
 		this.describtion = describtion;
 	}
+	
 }

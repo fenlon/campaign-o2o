@@ -1,7 +1,9 @@
 /**
  * this is register.js
  */
-var registerModule = angular.module('registerModule', []).controller(
+var registerModule = angular.module('registerModule', [])
+
+.controller(
 		'registerCtrl',
 		[
 				'$scope',

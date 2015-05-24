@@ -41,7 +41,7 @@
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Search">
 				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
+				<button type="submit" class="btn btn-default">搜索</button>
 			</form>
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
@@ -54,7 +54,8 @@
 					<c:otherwise>
 						<li><a
 							href="${pageContext.request.contextPath }/user_info/#base_info/${currentUser.encodeStr }">${currentUser.name }</a></li>
-						<li><a href="javascript:void(0)">发布活动</a></li>
+						<li><a
+							href="${pageContext.request.contextPath }/store_campaign/create.htm">发布活动</a></li>
 						<li><a
 							href="${pageContext.request.contextPath }/login/loginout.htm">退出</a></li>
 					</c:otherwise>

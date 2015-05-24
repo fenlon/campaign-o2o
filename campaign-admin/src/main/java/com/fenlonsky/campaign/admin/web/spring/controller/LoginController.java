@@ -39,7 +39,6 @@ public class LoginController {
 		// session中user对象不保存其Id(如果ID要是String类型就不存在着encodeStr这个属性了)
 		user.setId(null);
 		session.setAttribute("currentUser", user);
-		System.out.println(user.getEncodeStr());
 		return "redirect:/index.htm";
 	}
 	

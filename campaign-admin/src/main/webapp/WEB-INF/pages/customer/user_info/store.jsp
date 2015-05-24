@@ -9,27 +9,26 @@
 			<thead>
 				<tr>
 					<th><input type="checkbox" ng-model="selectAll">全选</th>
-					<th>序号</th>
-					<th>门店编号</th>
+					<!-- <th>门店编号</th> -->
 					<th>门店名称</th>
 					<th>授权码</th>
 					<th>状态</th>
-					<th>是否禁用</th>
 					<th>地址</th>
+					<th>二维码</th>
 					<th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="s in page.content">
-					<th><input type="checkbox" ng-checked="selectAll"></th>
-					<th scope="row">{{(pageSize*(currentPage-1))+$index+1}}</th>
-					<td>{{s.number}}</td>
+					<th><input type="checkbox" ng-checked="selectAll"><label>&nbsp;&nbsp;{{(pageSize*(currentPage-1))+$index+1}}</label></th>
+					<!-- <th scope="row"></th> -->
+					<!-- <td>{{s.number}}</td> -->
 					<td>{{s.name}}</td>
 					<td>{{s.authCode}}</td>
 					<td>{{s.active}}</td>
-					<td>{{s.enable}}</td>
 					<td>{{s.location.address}}</td>
-					<td><a ng-click="deleteStore(s.id)">删除</a></td>
+					<td><a href="javascript:void(0)" ng-click="showQRCode($index)">查看</a></td>
+					<td><a>详细</a> <a ng-click="deleteStore(s.id)">删除</a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -121,6 +120,26 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 					<button type="button" class="btn btn-primary"
 						ng-disabled="storeForm.$invalid" ng-click="createStore()">确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="qrcodeModal" tabindex="-1" role="dialog"
+		aria-labelledby="qrcodeModelLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="addStoreModelLabel">
+						<strong>{{store.name}}</strong>
+					</h4>
+				</div>
+				<div class="modal-body text-center">
+					<img src="{{qrcodeUrl}}" alt="二维码" class="img-rounded">
 				</div>
 			</div>
 		</div>

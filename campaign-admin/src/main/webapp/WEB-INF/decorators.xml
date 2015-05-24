@@ -11,5 +11,6 @@
 		<pattern>/user_info/base_info.htm</pattern>
 		<pattern>/user_info/store.htm</pattern>
 		<pattern>/user_info/message.htm</pattern>
+		<pattern>/store/mobile/**</pattern>
 	</excludes>
 </decorators>
