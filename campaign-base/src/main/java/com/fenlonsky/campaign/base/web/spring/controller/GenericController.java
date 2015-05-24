@@ -147,7 +147,7 @@ public abstract class GenericController<T extends BaseEntityModel, PK extends Se
 			List<T> list = this.manager.findAll();
 			return asSuccess(list);
 		} catch (Exception e) {
-			logger.info("获取所有数据失败", e.fillInStackTrace());
+			logger.error("获取所有数据失败", e.fillInStackTrace());
 			return asError("获取所有数据失败", null);
 		}
 	}
