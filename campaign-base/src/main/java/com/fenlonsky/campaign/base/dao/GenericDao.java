@@ -1,8 +1,10 @@
 package com.fenlonsky.campaign.base.dao;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
@@ -34,5 +36,11 @@ public interface GenericDao<T extends BaseEntityModel, PK extends Serializable>
 	Boolean remove(PK id);
 	
 	T findByCondition(String statement, Map<String, Object> params);
+	
+	Page<T> findAllByConditionByPage(String statement, Map<String, Object> params);
+	
+	List<T> findAllByCondition(String statement, Map<String, Object> params);
+	
+	Integer executeByCon(String statement, Map<String, Object> params);
 	
 }

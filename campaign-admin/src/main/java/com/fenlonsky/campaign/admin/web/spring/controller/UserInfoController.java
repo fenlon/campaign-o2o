@@ -44,6 +44,11 @@ public class UserInfoController extends GenericController<AccountUser, Long, Acc
 		return "/customer/user_info/store";
 	}
 	
+	@RequestMapping(value = "campaign", method = RequestMethod.GET)
+	public String campaign() {
+		return "/customer/user_info/campaign";
+	}
+	
 	@RequestMapping(value = "info/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public AccountUser getUserInfo(@PathVariable("id") String userId) {

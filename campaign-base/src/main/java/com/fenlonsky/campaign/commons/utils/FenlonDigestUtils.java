@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 public final class FenlonDigestUtils {
 	
 	static Logger logger = LoggerFactory.getLogger(FenlonDigestUtils.class);
+	final String SINK = "FenlonX";
 	
 	private FenlonDigestUtils() {
 	}

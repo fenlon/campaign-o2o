@@ -32,14 +32,14 @@
 				</tr>
 			</tbody>
 		</table>
-		<table>
+		<div class="text-right">
 			<pagination total-items="totalItems" ng-model="currentPage"
 				max-size="maxSize" class="pagination-sm" items-per-page="pageSize"
 				ng-change="pageChanged()" boundary-links="true"
 				num-pages="page.totalPages" previous-text="前一页" next-text="后一页"
 				first-text="首页" last-text="尾页"></pagination>
 			<!-- <pre>Page: {{currentPage}} / {{page.totalPages}}</pre> -->
-		</table>
+		</div>
 
 	</div>
 

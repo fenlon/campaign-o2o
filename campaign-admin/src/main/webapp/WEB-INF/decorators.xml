@@ -11,6 +11,8 @@
 		<pattern>/user_info/base_info.htm</pattern>
 		<pattern>/user_info/store.htm</pattern>
 		<pattern>/user_info/message.htm</pattern>
+		<pattern>/user_info/campaign.htm</pattern>
 		<pattern>/store/mobile/**</pattern>
+		<pattern>/store_campaign/mobile/**</pattern>
 	</excludes>
 </decorators>

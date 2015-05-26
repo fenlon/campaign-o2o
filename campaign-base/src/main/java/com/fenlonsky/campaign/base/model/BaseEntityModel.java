@@ -6,6 +6,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.codehaus.jackson.map.ext.JodaSerializers.DateTimeSerializer;
 import org.joda.time.DateTime;
 
+import com.fenlonsky.campaign.commons.utils.FenlonDigestUtils;
+
 public class BaseEntityModel extends BaseModel {
 	
 	/**
@@ -68,11 +70,17 @@ public class BaseEntityModel extends BaseModel {
 	}
 	
 	public String getEncodeStr() {
+		if (encodeStr == null && id != null) {
+			encodeStr = FenlonDigestUtils.pbeEncrypt(id + "");
+			return encodeStr;
+		}
 		return encodeStr;
 	}
 	
-	public void setEncodeStr(String encodeStr) {
-		this.encodeStr = encodeStr;
+	public void setEncodeStr() {
+		if (id != null) {
+			this.encodeStr = FenlonDigestUtils.pbeEncrypt(id + "");
+		}
 	}
 	
 	public Long getId() {
@@ -81,6 +89,7 @@ public class BaseEntityModel extends BaseModel {
 	
 	public void setId(Long id) {
 		this.id = id;
+		setEncodeStr();
 	}
 	
 	@Override

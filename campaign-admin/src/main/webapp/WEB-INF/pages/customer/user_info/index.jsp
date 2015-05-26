@@ -21,8 +21,11 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resources/js/customer/userinfo.js"></script>
 <style type="text/css">
+.table th,.table td {
+	text-align: center;
+}
 /* Custom Styles */
-.right-nav {
+/* .right-nav {
 	border: 1px solid gray;
 	border-radius: 18px;
 }
@@ -69,8 +72,8 @@ ul.nav-tabs li:last-child a {
 }
 
 ul.nav-tabs.affix {
-	top: 30px; /* Set the top position of pinned element */
-}
+	top: 30px; 
+}*/
 </style>
 </head>
 <body data-spy="scroll" data-target="#myScrollspy" ng-app="userModule">
@@ -83,6 +86,7 @@ ul.nav-tabs.affix {
 						<li><a href="#base_info/${currentUser.encodeStr }">基本资料</a></li>
 						<li><a href="#message">消息管理</a></li>
 						<li><a href="#store">门店管理</a></li>
+						<li><a href="#campaign">活动管理</a></li>
 					</ul>
 				</div>
 			</div>

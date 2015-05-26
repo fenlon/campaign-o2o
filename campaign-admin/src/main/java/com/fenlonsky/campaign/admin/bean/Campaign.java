@@ -13,7 +13,7 @@ public class Campaign extends BaseEntityModel {
 	/** 活动名称 **/
 	private String name;
 	/** 用户ID **/
-	private String userId;
+	private Long userId;
 	/** 开始时间 **/
 	private DateTime startTime;
 	/** 结束时间 **/
@@ -39,11 +39,11 @@ public class Campaign extends BaseEntityModel {
 		this.name = name;
 	}
 	
-	public String getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 	
-	public void setUserId(String userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	

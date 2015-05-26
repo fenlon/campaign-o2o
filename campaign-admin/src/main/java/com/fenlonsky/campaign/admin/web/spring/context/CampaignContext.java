@@ -31,7 +31,9 @@ public class CampaignContext {
 	
 	public static AccountUser getSessionAccountUser() {
 		HttpSession session = getHttpSession();
-		return (AccountUser) session.getAttribute("currentUser");
+		AccountUser user = (AccountUser) session.getAttribute("currentUser");
+		// user.setId(Long.valueOf(FenlonDigestUtils.pbeDecrypt(user.getEncodeStr())));
+		return user;
 	}
 	
 	public static String getSessionAttribute(String attribute) {

@@ -29,15 +29,13 @@ angular.module('customer.storeCampaignCreate', [ 'ui.bootstrap' ])
 							cache : $templateCache
 						}).success(
 								function(data, status) {
-									return;
 									if (data.success) {
 										window.location.href = ctx
-												+ "/login/index.htm";
+												+ '/user_info/#/campaign';
 									}
 								}).error(function(data, status) {
-							// alert(data);
+							alert(data.message);
 						});
-
 					};
 
 					/**

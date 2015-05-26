@@ -161,15 +161,10 @@
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-8 text-center">
 				<button type="button" ng-click="doCreate()"
-					class="btn btn-default btn-lg btn-block"
+					class="btn btn-primary btn-lg btn-block"
 					ng-disabled="campaignForm.$invalid">注册</button>
-				<button type="reset" class="btn btn-default btn-lg btn-block">重置</button>
+				<button type="reset" class="btn btn-primary btn-lg btn-block">重置</button>
 			</div>
 		</div>
 	</form>
-
-
-
-
-
 </div>

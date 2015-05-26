@@ -70,15 +70,40 @@
 			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride> 
 			</table> -->
 
-		<table schema="DB2ADMIN" tableName="t_store_campaign"
-			domainObjectName="StoreCampaign" enableCountByExample="false"
+		<!-- <table schema="DB2ADMIN" tableName="t_store_campaign" domainObjectName="StoreCampaign" 
+			enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" 
+			enableUpdateByExample="false"> <property name="useActualColumnNames" value="true" 
+			/> <columnOverride column="status" javaType="com.fenlonsky.campaign.base.common.enums.CampaignStatus"></columnOverride> 
+			<columnOverride column="dateCreated" javaType="org.joda.time.DateTime"></columnOverride> 
+			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride> 
+			</table> -->
+
+
+
+		<table schema="DB2ADMIN" tableName="t_store_operator"
+			domainObjectName="StoreOperator" enableCountByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			enableUpdateByExample="false">
 			<property name="useActualColumnNames" value="true" />
 			<columnOverride column="status"
-				javaType="com.fenlonsky.campaign.base.common.enums.CampaignStatus"></columnOverride>
+				javaType="com.fenlonsky.campaign.base.common.enums.EnableState"></columnOverride>
 			<columnOverride column="dateCreated" javaType="org.joda.time.DateTime"></columnOverride>
 			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride>
 		</table>
+
+		<table schema="DB2ADMIN" tableName="t_cam_redeem_code"
+			domainObjectName="CampaignRedeemCode" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+			<property name="useActualColumnNames" value="true" />
+			<columnOverride column="status"
+				javaType="com.fenlonsky.campaign.admin.enums.RedeemCodeStu"></columnOverride>
+			<columnOverride column="operatorId"
+				javaType="com.fenlonsky.campaign.admin.bean.StoreOperator"></columnOverride>
+			<columnOverride column="dateCreated" javaType="org.joda.time.DateTime"></columnOverride>
+			<columnOverride column="redeemTime" javaType="org.joda.time.DateTime"></columnOverride>
+			<columnOverride column="dateModified" javaType="org.joda.time.DateTime"></columnOverride>
+		</table>
+
 	</context>
 </generatorConfiguration>

@@ -201,4 +201,21 @@ public class GenericDaoImpl<T extends BaseEntityModel> implements GenericDao<T, 
 		return this.template.selectOne(type.getName() + "." + statement, params);
 	}
 	
+	@Override
+	public Integer executeByCon(String statement, Map<String, Object> params) {
+		return this.template.update(type.getName() + "." + statement, params);
+	}
+	
+	@Override
+	public Page<T> findAllByConditionByPage(String statement, Map<String, Object> params) {
+		// 不应该在这里判断分页对象是否为空，应该在controller层去做控制
+		List<T> content = this.template.selectList(type.getName() + "." + statement, params);
+		Long total = DataUtil.getTotalCount();
+		return new PageImpl<T>(content, (Pageable) params.get("page"), total);
+	}
+	
+	@Override
+	public List<T> findAllByCondition(String statement, Map<String, Object> params) {
+		return this.template.selectList(statement, params);
+	}
 }

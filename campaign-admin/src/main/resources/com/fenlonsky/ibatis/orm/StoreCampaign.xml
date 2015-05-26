@@ -77,18 +77,24 @@
 		#{name,jdbcType=VARCHAR},
 		#{userId,jdbcType=BIGINT},
 		#{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
-		#{status,jdbcType=TINYINT}, #{validity,jdbcType=INTEGER},
+		#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,javaType=com.fenlonsky.campaign.base.common.enums.CampaignStatus,jdbcType=TINYINT},
+		#{validity,jdbcType=INTEGER},
 		#{quantity,jdbcType=INTEGER},
 		#{price,jdbcType=REAL},
-		#{deliverNum,jdbcType=INTEGER}, #{redeemNum,jdbcType=INTEGER},
-		#{repeatGet,jdbcType=BIT}, #{deductSend,jdbcType=DOUBLE},
+		#{deliverNum,jdbcType=INTEGER},
+		#{redeemNum,jdbcType=INTEGER},
+		#{repeatGet,jdbcType=BIT},
+		#{deductSend,jdbcType=DOUBLE},
 		#{deductReedem,jdbcType=DOUBLE},
 		#{link,jdbcType=VARCHAR},
-		#{logo,jdbcType=VARCHAR}, #{mbayPlatSend,jdbcType=INTEGER},
-		#{lockMbay,jdbcType=DOUBLE}, #{costMbay,jdbcType=DOUBLE},
+		#{logo,jdbcType=VARCHAR},
+		#{mbayPlatSend,jdbcType=INTEGER},
+		#{lockMbay,jdbcType=DOUBLE},
+		#{costMbay,jdbcType=DOUBLE},
 		#{describtion,jdbcType=VARCHAR},
 		#{deleted,jdbcType=BIT},
-		#{dateCreated,jdbcType=TIMESTAMP}, #{dateModified,jdbcType=TIMESTAMP}
+		#{dateCreated,jdbcType=TIMESTAMP},
+		#{dateModified,jdbcType=TIMESTAMP}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.fenlonsky.campaign.admin.bean.StoreCampaign">
@@ -190,7 +196,7 @@
 				#{endTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="status != null">
-				#{status,jdbcType=TINYINT},
+				#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,javaType=com.fenlonsky.campaign.base.common.enums.CampaignStatus,jdbcType=TINYINT},
 			</if>
 			<if test="validity != null">
 				#{validity,jdbcType=INTEGER},
@@ -267,7 +273,8 @@
 				endTime = #{endTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="status != null">
-				status = #{status,jdbcType=TINYINT},
+				status =
+				#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,javaType=com.fenlonsky.campaign.base.common.enums.CampaignStatus,jdbcType=TINYINT},
 			</if>
 			<if test="validity != null">
 				validity = #{validity,jdbcType=INTEGER},
@@ -336,7 +343,8 @@
 		= #{startTime,jdbcType=TIMESTAMP},
 		endTime =
 		#{endTime,jdbcType=TIMESTAMP},
-		status = #{status,jdbcType=TINYINT},
+		status =
+		#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,javaType=com.fenlonsky.campaign.base.common.enums.CampaignStatus,jdbcType=TINYINT},
 		validity = #{validity,jdbcType=INTEGER},
 		quantity =
 		#{quantity,jdbcType=INTEGER},
@@ -372,4 +380,55 @@
 		from t_store_campaign where deleted=false
 	</select>
 
+	<select id="findAllByUserIdByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_store_campaign where deleted=false and userId =
+		#{userId,jdbcType=BIGINT}
+	</select>
+
+	<select id="findAllActiveByUserId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_store_campaign where userId =
+		#{userId,jdbcType=BIGINT} and
+		status=#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,javaType=com.fenlonsky.campaign.base.common.enums.CampaignStatus,jdbcType=TINYINT}
+		and deleted=false
+	</select>
+
+	<update id="cancle" parameterType="map">
+		update t_store_campaign
+		set
+		status =
+		#{status,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,javaType=com.fenlonsky.campaign.base.common.enums.CampaignStatus,jdbcType=TINYINT},
+		dateModified =NOW()
+		where
+		deleted=false and id =
+		#{id,jdbcType=BIGINT}
+		and
+		userId=#{userId,jdbcType=BIGINT}
+	</update>
+	<update id="updateDeliverNum" parameterType="map">
+		update
+		t_store_campaign
+		set
+		deliverNum=deliverNum+1
+		where
+		deleted=false and id =
+		#{campaignId,jdbcType=BIGINT}
+		and
+		userId=#{userId,jdbcType=BIGINT}
+	</update>
+
+	<update id="updateRedeemNum" parameterType="map">
+		update
+		t_store_campaign
+		set
+		redeemNum=redeemNum+1
+		where
+		deleted=false and id =
+		#{campaignId,jdbcType=BIGINT}
+		and
+		userId=#{userId,jdbcType=BIGINT}
+	</update>
 </mapper>
