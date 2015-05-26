@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import StormCampaignForm.MobileForm;
+
 import com.fenlonsky.campaign.admin.bean.CampaignRedeemCode;
 import com.fenlonsky.campaign.admin.bean.StoreCampaign;
 import com.fenlonsky.campaign.admin.service.CampaignRedeemCodeManager;
@@ -157,21 +159,33 @@ public class StoreCampaignController extends GenericController<StoreCampaign, Lo
 		return "/customer/store_campaign/mobile/detail";
 	}
 	
-	@RequestMapping(value = "/mobile/join", method = RequestMethod.POST)
+	@RequestMapping(value = "/mobile/join", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public APIResult<String> join(@RequestParam(value = "storeId") String storeIdStr, String campaignId, String mobile) {
-		Long storeId = Long.valueOf(FenlonDigestUtils.pbeDecrypt(storeIdStr));
-		StoreCampaign campaign = this.storeCampaignManager.findById(Long.valueOf(FenlonDigestUtils.pbeDecrypt(campaignId)));
-		APIResult<String> result = this.campaignRedeemCodeManager.judgeValidate(campaign, mobile);
+	public APIResult<Object> join(@RequestBody MobileForm data) {
+		
+		Long storeId =
+				Long.valueOf(FenlonDigestUtils.pbeDecrypt(data.getStoreId()));
+		StoreCampaign campaign =
+				this.storeCampaignManager.findById(Long.valueOf(FenlonDigestUtils.pbeDecrypt(data.getCampaignId())));
+		APIResult<Object> result =
+				this.campaignRedeemCodeManager.judgeValidate(campaign, data.getMobile());
 		if (!result.getSuccess()) {
 			return result;
 		}
 		// 生成兑换码
-		CampaignRedeemCode redeemCode = this.campaignRedeemCodeManager.createRedeemCode(mobile, storeId, campaign);
+		CampaignRedeemCode redeemCode =
+				this.campaignRedeemCodeManager.createRedeemCode(data.getMobile(), storeId,
+						campaign);
 		String code = redeemCode.getRedeemCode();
 		code = FenlonDigestUtils.pbeEncrypt(code);
 		result.setCode(APIResultCode.SUCCESS);
-		result.setMessage(code);
+		result.setMessage("领取 红包成功");
+		
+		String[] obj = new String[2];
+		obj[0] = data.getStoreId();
+		obj[1] = code;
+		
+		result.setResult(obj);
 		return result;
 	}
 	
@@ -180,4 +194,5 @@ public class StoreCampaignController extends GenericController<StoreCampaign, Lo
 	public APIResult<StoreCampaign> get(@PathVariable String id) {
 		return super.get(Long.valueOf(FenlonDigestUtils.pbeDecrypt(id)));
 	}
+	
 }

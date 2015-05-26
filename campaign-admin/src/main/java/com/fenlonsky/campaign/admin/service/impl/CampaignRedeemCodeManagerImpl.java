@@ -45,9 +45,9 @@ public class CampaignRedeemCodeManagerImpl extends GenericManagerImpl<CampaignRe
 	}
 	
 	@Override
-	public APIResult<String> judgeValidate(StoreCampaign campaign, String mobile) {
+	public APIResult<Object> judgeValidate(StoreCampaign campaign, String mobile) {
 		// ExecuteResult result = new ExecuteResult(true, );
-		APIResult<String> result = new APIResult<String>(true, APIResultCode.SUCCESS, "您可以参加活动!", null);
+		APIResult<Object> result = new APIResult<Object>(true, APIResultCode.SUCCESS, "您可以参加活动!", null);
 		// 1: 判断活动是否存在
 		if (campaign == null) {
 			result.setCode(APIResultCode.ERROR);
@@ -76,7 +76,7 @@ public class CampaignRedeemCodeManagerImpl extends GenericManagerImpl<CampaignRe
 		// 4: 根据是否是否允许重复领取，来判断是否生成兑换码
 		if (!campaign.isRepeatGet()) {
 			// 如果不允许重复领取，则判断
-			boolean exist = this.findRedeemCodeByMobileAndId(campaign.getId(), mobile) == null ? true : false;
+			boolean exist = this.findRedeemCodeByMobileAndId(campaign.getId(), mobile) == null ? false : true;
 			if (exist) {
 				result.setCode(APIResultCode.ERROR);
 				result.setSuccess(false);
@@ -89,9 +89,9 @@ public class CampaignRedeemCodeManagerImpl extends GenericManagerImpl<CampaignRe
 	}
 	
 	@Override
-	public CampaignRedeemCode findRedeemCodeByMobileAndId(Long id, String mobile) {
+	public CampaignRedeemCode findRedeemCodeByMobileAndId(Long campaignId, String mobile) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("id", id);
+		params.put("cId", campaignId);
 		params.put("mobile", mobile);
 		return this.campaignRedeemCodeDao.findByCondition("findRedeemCodeByMobileAndId", params);
 	}
@@ -110,7 +110,7 @@ public class CampaignRedeemCodeManagerImpl extends GenericManagerImpl<CampaignRe
 			// 1:判断商户余额是否足够
 			// 查用户当前余额
 			AccountUser user = this.accountUserManager.findById(userId);
-			double balance = user.getMbay();
+			Double balance = user.getMbay();
 			if (balance < campaign.getDeductSend()) {
 				// 如果商户余额不足，不创建兑换码,活动也不停止
 				this.logger.info("createRedeemCode", "商户余额不足,请及时充值！");

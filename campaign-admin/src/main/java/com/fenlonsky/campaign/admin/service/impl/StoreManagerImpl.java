@@ -1,5 +1,8 @@
 package com.fenlonsky.campaign.admin.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,5 +39,12 @@ public class StoreManagerImpl extends GenericManagerImpl<Store, Long> implements
 		entity.setLocation(location);
 		Store s = super.save(entity);
 		return s;
+	}
+	
+	@Override
+	public Store findByAuthCode(String authCode) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("authCode", authCode);
+		return this.storeDao.findByCondition("findByAuthCode", params);
 	}
 }

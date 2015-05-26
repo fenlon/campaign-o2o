@@ -14,5 +14,6 @@
 		<pattern>/user_info/campaign.htm</pattern>
 		<pattern>/store/mobile/**</pattern>
 		<pattern>/store_campaign/mobile/**</pattern>
+		<pattern>/store_operator/mobile/**</pattern>
 	</excludes>
 </decorators>

@@ -44,6 +44,7 @@
 			<mvc:exclude-mapping path="/error/**" />
 
 			<mvc:exclude-mapping path="/store_campaign/mobile/**" />
+			<mvc:exclude-mapping path="/store_operator/mobile/**" />
 			<mvc:exclude-mapping path="/store/mobile/**" />
 			<mvc:exclude-mapping path="/index.htm" />
 			<mvc:exclude-mapping path="/authcode/**" />

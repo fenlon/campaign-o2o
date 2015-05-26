@@ -28,53 +28,60 @@
 </head>
 <body ng-app="mobileDetailModule">
 	<div class="container-fluid text-center" ng-controller="detailCtrl">
-		<div class="list-group">
-			<a href="#" class="list-group-item active">
-				<h4 class="list-group-item-heading">活动名称</h4>
-				<p class="list-group-item-text">{{campaign.name}}</p>
-			</a>
-		</div>
-		<div class="list-group">
-			<a href="#" class="list-group-item active">
-				<h4 class="list-group-item-heading">活动编号</h4>
-				<p class="list-group-item-text">{{campaign.number}}</p>
-			</a>
-		</div>
-		<div class="list-group">
-			<a href="#" class="list-group-item active">
-				<h4 class="list-group-item-heading">活动名称</h4>
-				<p class="list-group-item-text">{{campaign.link}}</p>
-			</a>
-		</div>
-		<div class="panel panel-primary">
-			<div class="panel-heading" role="tab" id="headingTwo">
-				<h4 class="panel-title" id="-collapsible-group-item-#2-">
-					<a class="collapsed" data-toggle="collapse"
-						data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
-						aria-controls="collapseTwo"><div>活动说明</div></a> <a
-						class="anchorjs-link" href="#-collapsible-group-item-#2-"><span
-						class="anchorjs-icon"></span></a>
-				</h4>
+		<div ng-show="!showQRCode">
+			<div class="list-group">
+				<a href="#" class="list-group-item active">
+					<h4 class="list-group-item-heading">活动名称</h4>
+					<p class="list-group-item-text">{{campaign.name}}</p>
+				</a>
 			</div>
-			<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
-				aria-labelledby="headingTwo">
-				<div class="panel-body">{{campaign.describtion}}</div>
+			<div class="list-group">
+				<a href="#" class="list-group-item active">
+					<h4 class="list-group-item-heading">活动编号</h4>
+					<p class="list-group-item-text">{{campaign.number}}</p>
+				</a>
 			</div>
-		</div>
+			<div class="list-group">
+				<a href="#" class="list-group-item active">
+					<h4 class="list-group-item-heading">活动名称</h4>
+					<p class="list-group-item-text">{{campaign.link}}</p>
+				</a>
+			</div>
+			<div class="panel panel-primary">
+				<div class="panel-heading" role="tab" id="headingTwo">
+					<h4 class="panel-title" id="-collapsible-group-item-#2-">
+						<a class="collapsed" data-toggle="collapse"
+							data-parent="#accordion" href="#collapseTwo"
+							aria-expanded="false" aria-controls="collapseTwo"><div>活动说明</div></a>
+						<a class="anchorjs-link" href="#-collapsible-group-item-#2-"><span
+							class="anchorjs-icon"></span></a>
+					</h4>
+				</div>
+				<div id="collapseTwo" class="panel-collapse collapse"
+					role="tabpanel" aria-labelledby="headingTwo">
+					<div class="panel-body">{{campaign.describtion}}</div>
+				</div>
+			</div>
 
 
-		<div class="row clearfix">
-			<div class="col-md-12 column">
-				<form role="form" name="mobileForm">
-					<div class="form-group">
-						<input type="text" ng-model="mobile"
-							style="background-color: yellow;" class="form-control"
-							placeholder="手机号" />
-					</div>
-					<button type="button" ng-click="getRed()"
-						class="btn btn-primary btn-lg btn-block">领取红包</button>
-				</form>
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<form role="form" name="mobileForm">
+						<div class="form-group">
+							<input type="hidden" ng-model="data.storeId" value="${storeId }">
+							<input type="hidden" ng-model="data.campaignId"
+								value="${campaignId }"> <input type="text"
+								ng-model="data.mobile" style="background-color: yellow;"
+								class="form-control" placeholder="手机号" />
+						</div>
+						<button type="button" ng-click="getRed()"
+							class="btn btn-primary btn-lg btn-block">领取红包</button>
+					</form>
+				</div>
 			</div>
+		</div>
+		<div ng-show="showQRCode">
+			<img ng-src="{{codeUrl}}" ng-show="showQRCode" alt="二维码">
 		</div>
 	</div>
 </body>

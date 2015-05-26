@@ -38,6 +38,9 @@ public class DateTimeTypeHandler extends BaseTypeHandler<DateTime> {
 			throws SQLException {
 		try {
 			String datatime = rs.getString(columnName);
+			if (datatime == null) {
+				return null;
+			}
 			if (datatime.length() > 19) {
 				datatime = datatime.substring(0, 19);
 			}
