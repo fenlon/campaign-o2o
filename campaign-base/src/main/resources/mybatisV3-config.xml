@@ -10,8 +10,8 @@
 		<typeHandler
 			handler="com.fenlonsky.campaign.base.persist.mybatis.handler.DateTimeTypeHandler"
 			javaType="org.joda.time.DateTime" jdbcType="TIMESTAMP" />
-	<!-- <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" 
-		javaType="com.fenlonsky.campaign.base.common.enums.CampaignStatus" /> -->
+		<!-- <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" 
+			javaType="com.fenlonsky.campaign.base.common.enums.CampaignStatus" /> -->
 	</typeHandlers>
 	<plugins>
 		<plugin
