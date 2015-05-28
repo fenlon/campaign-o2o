@@ -1,4 +1,4 @@
-angular
+var userModule = angular
 		.module('userModule', [ 'ngRoute', 'ngResource', 'ui.bootstrap' ])
 
 		.factory('UserInfo', function($http, $templateCache) {
@@ -116,7 +116,7 @@ angular
 									});
 						} ])
 
-		.controller('MessageController', function($scope, $routeParams) {
+		.controller('CamDatailController', function($scope, $routeParams) {
 			$scope.name = "BookController";
 			$scope.params = $routeParams;
 		})
@@ -309,9 +309,8 @@ angular
 			}).when('/base_info/:id', {
 				controller : 'BaseInfoController',
 				templateUrl : 'base_info.htm'
-			}).when('/message', {
-				controller : 'MessageController',
-				templateUrl : 'message.htm'
+			}).when('/campaign/detail/:id', {
+				templateUrl : 'campaign/detail.htm'
 			}).when('/store', {
 				controller : 'StoreController',
 				templateUrl : 'store.htm'

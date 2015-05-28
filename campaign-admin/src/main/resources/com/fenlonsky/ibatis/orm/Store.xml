@@ -209,4 +209,12 @@
 		where authCode = #{authCode,jdbcType=CHAR} and
 		deleted=false
 	</select>
+
+	<update id="updateIsActive" parameterType="map">
+		update t_store
+		set
+		active =
+		#{active,jdbcType=BIT},
+		where id = #{id,jdbcType=BIGINT}
+	</update>
 </mapper>

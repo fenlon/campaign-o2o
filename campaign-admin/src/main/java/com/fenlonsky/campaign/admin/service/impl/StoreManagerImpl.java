@@ -47,4 +47,12 @@ public class StoreManagerImpl extends GenericManagerImpl<Store, Long> implements
 		params.put("authCode", authCode);
 		return this.storeDao.findByCondition("findByAuthCode", params);
 	}
+	
+	@Override
+	public Boolean updateIsActive(Long id, boolean active) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		params.put("active", active);
+		return this.storeDao.executeByCon("updateIsActive", params) > 1 ? true : false;
+	}
 }

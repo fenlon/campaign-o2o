@@ -9,14 +9,12 @@ angular
 						'$templateCache',
 						function($scope, $http, $templateCache) {
 
-							// $scope.showQRCode = false;
+							$scope.showQRCode = false;
 							$scope.srcUrl = "http://192.168.1.207:8080"
 									+ ctx
-									+ "/store_operator/mobile/redeem_ui.htm?storeId="
-									+ storeId + "&code=";
+									+ "/store_operator/mobile/redeem_ui.htm?code=";
 							$scope.codeUrl = 'http://120.25.230.36:8080/campaign_qrcode/'
 									+ "/qrcode/get.html?content=";
-
 							$scope.getImg = function() {
 								if ($scope.showQRCode == false) {
 									return "null";
@@ -61,6 +59,10 @@ angular
 										}).success(
 										function(data, status) {
 											if (data.success) {
+												// $scope.codeUrl =
+												// $scope.codeUrl
+												// + $scope.srcUrl
+												// + data.result[1] + "'";
 												$scope.codeUrl = $scope.codeUrl
 														+ $scope.srcUrl
 														+ data.result[1];

@@ -34,9 +34,9 @@ public class UserInfoController extends GenericController<AccountUser, Long, Acc
 		return "/customer/user_info/base_info";
 	}
 	
-	@RequestMapping(value = "message", method = RequestMethod.GET)
+	@RequestMapping(value = "campaign/detail", method = RequestMethod.GET)
 	public String message() {
-		return "/customer/user_info/message";
+		return "/customer/store_campaign/detail";
 	}
 	
 	@RequestMapping(value = "store", method = RequestMethod.GET)

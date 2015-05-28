@@ -248,4 +248,14 @@
 		where campaignId = #{cId,jdbcType=BIGINT} and
 		mobile=#{mobile,jdbcType=CHAR} and deleted=false
 	</select>
+
+	<select id="findByCode" parameterType="map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_cam_redeem_code
+		where redeemCode =
+		#{code,jdbcType=CHAR}
+		and
+		deleted=false
+	</select>
 </mapper>

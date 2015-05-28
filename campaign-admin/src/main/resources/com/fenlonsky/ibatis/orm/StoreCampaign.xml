@@ -431,4 +431,5 @@
 		and
 		userId=#{userId,jdbcType=BIGINT}
 	</update>
+
 </mapper>

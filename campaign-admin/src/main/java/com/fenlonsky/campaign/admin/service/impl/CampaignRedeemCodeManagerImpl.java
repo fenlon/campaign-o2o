@@ -12,12 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fenlonsky.campaign.admin.bean.AccountUser;
 import com.fenlonsky.campaign.admin.bean.CampaignRedeemCode;
+import com.fenlonsky.campaign.admin.bean.Store;
 import com.fenlonsky.campaign.admin.bean.StoreCampaign;
+import com.fenlonsky.campaign.admin.bean.StoreOperator;
 import com.fenlonsky.campaign.admin.dao.CampaignRedeemCodeDao;
 import com.fenlonsky.campaign.admin.enums.RedeemCodeStu;
 import com.fenlonsky.campaign.admin.service.AccountUserManager;
 import com.fenlonsky.campaign.admin.service.CampaignRedeemCodeManager;
 import com.fenlonsky.campaign.admin.service.StoreCampaignManager;
+import com.fenlonsky.campaign.admin.service.StoreManager;
 import com.fenlonsky.campaign.base.common.enums.CampaignStatus;
 import com.fenlonsky.campaign.base.dao.utils.PKgen;
 import com.fenlonsky.campaign.base.protocols.APIResult;
@@ -35,6 +38,9 @@ public class CampaignRedeemCodeManagerImpl extends GenericManagerImpl<CampaignRe
 	
 	@Autowired
 	StoreCampaignManager storeCampaignManager;
+	
+	@Autowired
+	StoreManager storeManager;
 	
 	CampaignRedeemCodeDao campaignRedeemCodeDao;
 	
@@ -169,5 +175,106 @@ public class CampaignRedeemCodeManagerImpl extends GenericManagerImpl<CampaignRe
 	
 	private String generateCode(String source) {
 		return FenlonDigestUtils.crc32(source);
+	}
+	
+	@Override
+	public CampaignRedeemCode findByCode(String code) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("code", code);
+		return this.campaignRedeemCodeDao.findByCondition("findByCode", params);
+	}
+	
+	@Override
+	public APIResult<Object> redeem(CampaignRedeemCode code, StoreOperator operator) {
+		APIResult<Object> result = new APIResult<Object>(true, APIResultCode.SUCCESS, "兑换成功！", null);
+		/*
+		 * Store deliverStore =
+		 * this.storeService.findStoreById(code.getStoreId()); if
+		 * (!deliverStore.isEnable()) { // 发放兑换码门店处于禁用状态
+		 * result.setError_code("DELIVER STORE HAS DISABLED");
+		 * result.setMessage("发放兑换码门店已经处于禁用状态，兑换码无法兑换!");
+		 * result.setSuccess(false); return result; }
+		 */
+		Store redeemStore = this.storeManager.findByAuthCode(operator.getAuthCode());
+		StoreCampaign campaign = this.storeCampaignManager.findById(code.getCampaignId());
+		Long userId = campaign.getUserId();
+		DateTime now = DateTime.now();
+		// 1:判断商户余额是否足够
+		// 查用户当前余额
+		AccountUser user = this.accountUserManager.findById(userId);
+		
+		Double balance = user.getMbay();
+		/** 得到活动兑换一个兑换码应该扣除的美贝数 **/
+		double price = campaign.getDeductReedem();
+		if (balance != null && balance < price) {
+			// 如果商户余额不足，不创建兑换码,活动也不停止
+			this.logger.info("redeem", "商户余额不足,请及时充值！");
+			result.setCode(APIResultCode.ERROR);
+			result.setMessage("账户余额不足!");
+			result.setSuccess(false);
+			return result;
+		}
+		
+		/*
+		 * // 2:生成订单
+		 * StoreCampaignOrder order = new StoreCampaignOrder();
+		 * order.setUserNumber(userNumber);
+		 * String number = PKgen.getInstance().nextPK() + "";
+		 * order.setNumber(number);
+		 * order.setPrice(price);
+		 * order.setRedeemCode(code.getRedeemCode());
+		 * order.setStatus(OrderStatus.FINISHED);
+		 * order.setType(StoreCampaginTradeType.REDEEM);
+		 * order.setDateCreated(now);
+		 * this.campaignOrderService.create(order);
+		 */
+		
+		// // 3:扣除活动单位兑换美贝数额(发放一个兑换码，扣除相应的美贝)
+		// result = this.assetsService.userAmountExpenditure(userNumber,
+		// TradeType.STORE_CAMPAGIN, order.getNumber(), price,
+		// code.getCellPhone());
+		// if (!result.isSuccess()) {
+		// logger.info("createRedeemCode", result.getError_code() + "-"
+		// + result.getMessage());
+		// return result;
+		// }
+		// 扣除用户兑换一个兑换码扣除的美贝
+		user.setMbay(user.getMbay() - campaign.getDeductReedem());
+		this.accountUserManager.update(user);
+		
+		// 4:jiechu duiying de kouchumeibei
+		// this.assetsService.reduceLockedAmount(userNumber, price);
+		
+		// 5:修改兑换码状态-兑换门店ID-和兑换操作员ID-兑换时间-数据修改时间
+		if (redeemStore == null) {
+			result.setSuccess(false);
+			result.setMessage("");
+			result.setCode(APIResultCode.ERROR);
+			return result;
+		}
+		code.setRedeemStoreId(redeemStore.getId());
+		code.setOperator(operator);
+		code.setStatus(RedeemCodeStu.REDEEMED);
+		code.setRedeemTime(now);
+		code.setDateModified(now);
+		this.campaignRedeemCodeDao.updateByIdSelective(code);
+		
+		// 6:修改活动兑换数量he suoding meibeizhi
+		this.storeCampaignManager.updateRedeemNum(campaign.getId(), userId);
+		
+		// 7:修改门店活动记录中门店兑换的数量
+		/*
+		 * this.storeCampaignRecordDao.updateRedeemNum(redeemStore.getId(),
+		 * campaign.getId());
+		 */
+		result.setMessage("兑换成功!");
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("code", code.getRedeemCode());
+		map.put("checkCode", code.getCheckCode());
+		map.put("link", campaign.getLink());
+		map.put("price", campaign.getPrice() + "");
+		result.setResult(map);
+		return result;
 	}
 }

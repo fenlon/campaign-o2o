@@ -6,4 +6,6 @@ import com.fenlonsky.campaign.base.service.GenericManager;
 public interface StoreManager extends GenericManager<Store, Long> {
 	
 	Store findByAuthCode(String authCode);
+	
+	Boolean updateIsActive(Long id, boolean active);
 }

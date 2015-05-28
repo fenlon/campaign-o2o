@@ -58,4 +58,12 @@ public class StoreCampaignManagerImpl extends GenericManagerImpl<StoreCampaign, 
 		params.put("userId", userId);
 		this.storeCampaignDao.executeByCon("updateDeliverNum", params);
 	}
+	
+	@Override
+	public void updateRedeemNum(Long campaignId, Long userId) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("campaignId", campaignId);
+		params.put("userId", userId);
+		this.storeCampaignDao.executeByCon("updateRedeemNum", params);
+	}
 }

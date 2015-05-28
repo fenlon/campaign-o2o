@@ -40,7 +40,7 @@
 						<td>{{c.startTime | date:'yyyy-MM-dd'}}</td>
 						<td>{{c.endTime | date:'yyyy-MM-dd'}}</td>
 						<td>{{c.quantity}}</td>
-						<td class="text-center"><a href="javascript:void(0)"
+						<td class="text-center"><a href="#campaign/detail/{{c.id}}"
 							class="btn">详细</a> <a class="btn"
 							ng-class="{'disabled':disable($index)}" href="javascript:void(0)"
 							ng-click="cancle(c.encodeStr,$index)">取消</a></td>

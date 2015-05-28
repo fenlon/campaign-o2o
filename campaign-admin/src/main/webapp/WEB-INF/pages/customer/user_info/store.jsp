@@ -28,7 +28,8 @@
 					<td>{{s.active}}</td>
 					<td>{{s.location.address}}</td>
 					<td><a href="javascript:void(0)" ng-click="showQRCode($index)">查看</a></td>
-					<td><a>详细</a> <a ng-click="deleteStore(s.id)">删除</a></td>
+					<td><a href="javascript:void(0)">详细</a> <a
+						href="javascript:void(0)" ng-click="deleteStore(s.id)">删除</a></td>
 				</tr>
 			</tbody>
 		</table>

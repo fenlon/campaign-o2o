@@ -57,6 +57,11 @@ public class StoreCampaignController extends GenericController<StoreCampaign, Lo
 		return "/admin/store_campaign/index";
 	}
 	
+	@RequestMapping(value = "detail", method = RequestMethod.GET)
+	public String detail() {
+		return "/customer/store_campaign/detail";
+	}
+	
 	/**
 	 * 创建活动页面
 	 * 
@@ -67,6 +72,13 @@ public class StoreCampaignController extends GenericController<StoreCampaign, Lo
 		return "/customer/store_campaign/create";
 	}
 	
+	/**
+	 * 发布新活动
+	 * 
+	 * @param campaign
+	 * @param result
+	 * @return
+	 */
 	@RequestMapping(value = "/campaign", method = RequestMethod.POST, consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public APIResult<Map<String, Object>> createCampaign(@RequestBody @Valid StoreCampaign campaign, BindingResult result) {
@@ -192,7 +204,10 @@ public class StoreCampaignController extends GenericController<StoreCampaign, Lo
 	@RequestMapping(value = "/mobile/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public APIResult<StoreCampaign> get(@PathVariable String id) {
+		if (id == null || id == "") {
+			APIResult<StoreCampaign> result = new APIResult<StoreCampaign>(false, APIResultCode.ERROR, "ID非法", null);
+			return result;
+		}
 		return super.get(Long.valueOf(FenlonDigestUtils.pbeDecrypt(id)));
 	}
-	
 }

@@ -15,9 +15,9 @@ public class Store extends BaseEntityModel {
 	/** 门店授权码 **/
 	private String authCode;
 	/** 是否禁用 **/
-	private Boolean enable = false;
+	private Boolean enable = true;
 	/** 是否激活 **/
-	private Boolean active = true;
+	private Boolean active = false;
 	/** 门店位置 **/
 	private Location location;
 	

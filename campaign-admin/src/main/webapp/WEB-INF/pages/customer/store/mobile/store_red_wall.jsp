@@ -25,7 +25,7 @@
 </head>
 <body ng-app="storeDetailModule">
 	<div class="container-fluid" ng-controller="StoreDetailCtrl">
-		<div class="panel panel-danger" ng-show="data.store.enable">
+		<div class="panel panel-danger" ng-show="!data.store.enable">
 			<div class="panel-heading">
 				<h3 class="panel-title" id="panel-title">
 					系统提醒<a class="anchorjs-link" href="#panel-title"><span

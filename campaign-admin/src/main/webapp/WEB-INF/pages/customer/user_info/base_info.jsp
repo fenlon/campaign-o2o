@@ -28,7 +28,7 @@ div {
 					<table class="table table-hover table-bordered">
 						<tbody>
 							<tr>
-								<td rowspan="4" class="text-center">
+								<td rowspan="5" class="text-center">
 									<div class="center-block">
 										<img alt="头像"
 											src="${pageContext.request.contextPath }/resources/images/user_info/user_m.png">
@@ -43,6 +43,10 @@ div {
 							<tr>
 								<td><strong>帐号ID:</strong></td>
 								<td><strong>{{user.id}}</strong></td>
+							</tr>
+							<tr>
+								<td><strong>美贝余额:</strong></td>
+								<td><strong>{{user.mbay}}</strong></td>
 							</tr>
 							<tr>
 								<td><strong>绑定手机号:</strong></td>

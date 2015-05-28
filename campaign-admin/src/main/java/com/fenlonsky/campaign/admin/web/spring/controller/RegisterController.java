@@ -38,7 +38,7 @@ public class RegisterController extends BaseController {
 	}
 	
 	/**
-	 * 根据输入的实体对象，创建一个新的实体对象
+	 * 用户注册
 	 * 
 	 * @param model
 	 * @return

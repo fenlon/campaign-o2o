@@ -39,11 +39,14 @@
 			method="post">
 			<input type="text" name="userName" class="username" placeholder="用户名">
 			<input type="password" name="password" class="password"
-				placeholder="密码"> <img
-				src="${pageContext.request.contextPath}/authcode/getAuthImg.htm"
-				alt="验证码" style="cursor: pointer; vertical-align: text-bottom;"
-				onclick="this.src=this.src+'?'+Math.random();" /> <input
-				type="text" name="authCode" class="password" placeholder="验证码">
+				placeholder="密码">
+			<div>
+				<label><strong>验证码为：</strong></label><img
+					src="${pageContext.request.contextPath}/authcode/getAuthImg.htm"
+					alt="验证码" style="cursor: pointer; vertical-align: text-bottom;"
+					onclick="this.src=this.src+'?'+Math.random();" />
+			</div>
+			<input type="text" name="authCode" class="password" placeholder="验证码">
 			<button type="submit">提交</button>
 			<div class="error">
 				<span>+</span>

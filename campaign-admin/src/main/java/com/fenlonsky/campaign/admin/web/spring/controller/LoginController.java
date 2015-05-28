@@ -31,13 +31,9 @@ public class LoginController {
 		}
 		AccountUser user = this.accountUserManager.findByNameAndPwd(userName, password);
 		if (user == null) {
-			return "";
+			return "redirect:/index.htm";
 		}
-		/*
-		 * String a = FenlonDigestUtils.pbeEncrypt(user.getId() + "");
-		 * user.setEncodeStr(a);
-		 */
-		// session中user对象不保存其Id(如果ID要是String类型就不存在着encodeStr这个属性了)
+		
 		session.setAttribute("currentUser", user);
 		return "redirect:/index.htm";
 	}

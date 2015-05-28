@@ -17,4 +17,6 @@ public interface StoreCampaignManager extends GenericManager<StoreCampaign, Long
 	public List<StoreCampaign> findAllActiveByUserId(Long userId, Pageable pageable);
 	
 	public void updateDeliverNum(long campaignId, Long userId);
+	
+	public void updateRedeemNum(Long id, Long userId);
 }

@@ -12,6 +12,7 @@
 		<pattern>/user_info/store.htm</pattern>
 		<pattern>/user_info/message.htm</pattern>
 		<pattern>/user_info/campaign.htm</pattern>
+		<pattern>/user_info/campaign/detail.htm</pattern>
 		<pattern>/store/mobile/**</pattern>
 		<pattern>/store_campaign/mobile/**</pattern>
 		<pattern>/store_operator/mobile/**</pattern>
