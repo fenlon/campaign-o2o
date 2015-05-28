@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.fenlonsky.campaign</groupId>
-		<artifactId>campaign_o2o</artifactId>
+		<artifactId>campaign-o2o</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>campaign-base</artifactId>

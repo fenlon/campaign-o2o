@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.fenlonsky.campaign</groupId>
-	<artifactId>campaign_o2o</artifactId>
+	<artifactId>campaign-o2o</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>campaign_o2o</name>
+	<name>campaign-o2o</name>
 	<description>this is a platform for o2o campaign !</description>
 	<packaging>pom</packaging>
 	<modules>
-		<module>campaign_qrcode</module>
+		<module>campaign-qrcode</module>
 		<module>campaign-base</module>
 		<module>campaign-admin</module>
 	</modules>
