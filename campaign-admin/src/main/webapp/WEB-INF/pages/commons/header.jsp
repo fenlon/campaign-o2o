@@ -19,10 +19,9 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="active"><a
-					href="http://120.25.230.36:8080/campaign_qrcode/" target="_blank">二维码<span
-						class="sr-only">(current)</span></a></li>
-				<li><a href="#">博客</a></li>
+				<li><a href="http://120.25.230.36:8080/campaign_qrcode/"
+					target="_blank">二维码<span class="sr-only">(current)</span></a></li>
+				<li><a href="http://120.25.230.36/~fenlon/web-res/fenlon/">博客</a></li>
 				<!-- <li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-expanded="false">作者信息
 						<span class="caret"></span>

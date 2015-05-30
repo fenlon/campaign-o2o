@@ -9,16 +9,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon"
-	href="${pageContext.request.contextPath }/resources/images/logo/logo_title.png" />
+	href="http://120.25.230.36/~fenlon/web-res/images/logo_title.png" />
 <title><decorator:title default="Welcome!" />-Fenlon Xiong</title>
 <script type="text/javascript">
 	var ctx = '${pageContext.request.contextPath	}';
 </script>
 <decorator:head />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/common/bootstarp3/bootstrap.min.css">
+	href="http://120.25.230.36/~fenlon/web-res/bootstrap-3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/common/bootstarp3/bootstrap-theme.min.css">
+	href="http://120.25.230.36/~fenlon/web-res/bootstrap-3.3.4/css/bootstrap-theme.min.css">
 <style type="text/css">
 body {
 	min-height: 2000px;
@@ -38,8 +38,8 @@ body {
 		<%@ include file="/WEB-INF/pages/commons/footer.jsp"%>
 	</div>
 	<script
-		src="${pageContext.request.contextPath }/resources/common/jquery/jquery-2.1.3.min.js"></script>
+		src="http://120.25.230.36/~fenlon/web-res/jquery/jquery-2.1.3.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath }/resources/common/bootstarp3/bootstrap.min.js"></script>
+		src="http://120.25.230.36/~fenlon/web-res/bootstrap-3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>
