@@ -10,7 +10,8 @@
 	</parent>
 	<artifactId>campaign-qrcode</artifactId>
 	<packaging>war</packaging>
-	<name>campaign_qrcode Maven Webapp</name>
+	<name>campaign-qrcode</name>
+	<description>campaign-qrcode module web</description>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
@@ -84,6 +85,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>campaign_qrcode</finalName>
+		<finalName>${project.name}</finalName>
 	</build>
 </project>

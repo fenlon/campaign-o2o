@@ -11,7 +11,7 @@
 	<modules>
 		<module>campaign-qrcode</module>
 		<module>campaign-base</module>
-		<module>campaign-admin</module>
+		<module>campaign-web</module>
 	</modules>
 
 	<properties>
