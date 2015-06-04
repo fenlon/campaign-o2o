@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.fenlonsky.campaign.web.bean.Store">
-	<resultMap id="BaseResultMap" type="com.fenlonsky.campaign.web.bean.Store">
+<mapper namespace="com.fenlonsky.campaign.admin.bean.Store">
+	<resultMap id="BaseResultMap" type="com.fenlonsky.campaign.admin.bean.Store">
 		<id column="id" property="id" jdbcType="BIGINT" />
 		<result column="userId" property="userId" jdbcType="BIGINT" />
 		<result column="number" property="number" jdbcType="VARCHAR" />
@@ -13,7 +13,7 @@
 		<result column="dateCreated" property="dateCreated" jdbcType="TIMESTAMP" />
 		<result column="dateModified" property="dateModified" jdbcType="TIMESTAMP" />
 		<association column="locationId" property="location"
-			javaType="com.fenlonsky.campaign.web.bean.Location" select="com.fenlonsky.campaign.web.bean.Location.selectById">
+			javaType="com.fenlonsky.campaign.admin.bean.Location" select="com.fenlonsky.campaign.admin.bean.Location.selectById">
 			<id column="locationId" property="id"></id>
 		</association>
 	</resultMap>
@@ -47,7 +47,7 @@
 		update t_store set
 		deleted=true where id = #{id,jdbcType=BIGINT}
 	</update>
-	<insert id="insert" parameterType="com.fenlonsky.campaign.web.bean.Store">
+	<insert id="insert" parameterType="com.fenlonsky.campaign.admin.bean.Store">
 		insert into t_store (id,
 		userId, number,
 		name, authCode, enable,
@@ -68,7 +68,7 @@
 		#{dateCreated,jdbcType=TIMESTAMP},
 		#{dateModified,jdbcType=TIMESTAMP})
 	</insert>
-	<insert id="insertSelective" parameterType="com.fenlonsky.campaign.web.bean.Store">
+	<insert id="insertSelective" parameterType="com.fenlonsky.campaign.admin.bean.Store">
 		insert into t_store
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -141,7 +141,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByIdSelective" parameterType="com.fenlonsky.campaign.web.bean.Store">
+	<update id="updateByIdSelective" parameterType="com.fenlonsky.campaign.admin.bean.Store">
 		update t_store
 		<set>
 			<if test="userId != null">
@@ -177,7 +177,7 @@
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-	<update id="updateById" parameterType="com.fenlonsky.campaign.web.bean.Store">
+	<update id="updateById" parameterType="com.fenlonsky.campaign.admin.bean.Store">
 		update t_store
 		set userId =
 		#{userId,jdbcType=BIGINT},

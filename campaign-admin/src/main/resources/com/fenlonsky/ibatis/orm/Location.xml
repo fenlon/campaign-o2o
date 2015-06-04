@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.fenlonsky.campaign.web.bean.Location">
-	<resultMap id="BaseResultMap" type="com.fenlonsky.campaign.web.bean.Location">
+<mapper namespace="com.fenlonsky.campaign.admin.bean.Location">
+	<resultMap id="BaseResultMap" type="com.fenlonsky.campaign.admin.bean.Location">
 		<id column="id" property="id" jdbcType="BIGINT" />
 		<result column="lng" property="lng" jdbcType="REAL" />
 		<result column="lat" property="lat" jdbcType="REAL" />
@@ -28,7 +28,7 @@
 		t_location
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
-	<insert id="insert" parameterType="com.fenlonsky.campaign.web.bean.Location">
+	<insert id="insert" parameterType="com.fenlonsky.campaign.admin.bean.Location">
 
 		insert into t_location (id,
 		lng, lat, address,
@@ -41,7 +41,7 @@
 		#{deleted,jdbcType=BIT}, #{dateCreated,jdbcType=TIMESTAMP},
 		#{dateModified,jdbcType=TIMESTAMP})
 	</insert>
-	<insert id="insertSelective" parameterType="com.fenlonsky.campaign.web.bean.Location">
+	<insert id="insertSelective" parameterType="com.fenlonsky.campaign.admin.bean.Location">
 
 		insert into t_location
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -97,7 +97,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByIdSelective" parameterType="com.fenlonsky.campaign.web.bean.Location">
+	<update id="updateByIdSelective" parameterType="com.fenlonsky.campaign.admin.bean.Location">
 
 		update t_location
 		<set>
@@ -125,7 +125,7 @@
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-	<update id="updateById" parameterType="com.fenlonsky.campaign.web.bean.Location">
+	<update id="updateById" parameterType="com.fenlonsky.campaign.admin.bean.Location">
 
 		update t_location
 		set lng =

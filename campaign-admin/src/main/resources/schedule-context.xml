@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd"> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 要调用的工作类 -->
+	<!-- <bean id="taskjob" class="org.springframework.scheduling.quartz.QuartzJobBean" 
+		/> -->
+	<bean id="taskjob" class="org.sz.mbay.channel.web.servelt.timer.QuartzJob" />
+	<!-- 定义调用对象和调用对象的方法 -->
+
+	<bean id="jobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="group" value="job_work" />
+		<property name="name" value="job_work_name" />
+		<!--false表示等上一个任务执行完后再开启新的任务 -->
+		<property name="concurrent" value="false" />
+		<property name="targetObject" ref="taskjob" />
+		<property name="targetMethod" value="work" />
+	</bean>
+
+	<!-- 定义触发器 -->
+	<bean id="myTrigger"
+		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="jobDetail" />
+		</property>
+		<property name="startDelay" value="10000" />
+		<property name="repeatInterval" value="5000" />
+		<property name="repeatCount" value="4" />
+	</bean>
+	<!-- 定义触发器 --><!-- <bean id="myTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> 
+		<property name="name" value="work_default_name" /> <property name="group" 
+		value="work_default" /> <property name="jobDetail"> <ref bean="jobDetail" 
+		/> </property> <property name="cronExpression"> <value>* 37 10 * * ?</value> 
+		</property> </bean> -->
+
+	<!-- 调度工厂 -->
+	<bean id="scheduler"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="myTrigger" />
+			</list>
+		</property>
+	</bean>
+</beans>

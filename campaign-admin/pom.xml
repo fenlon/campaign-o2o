@@ -8,9 +8,9 @@
 		<artifactId>campaign-o2o</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>campaign-web</artifactId>
+	<artifactId>campaign-admin</artifactId>
 	<packaging>war</packaging>
-	<name>campaign-web</name>
+	<name>campaign-admin</name>
 	<url>http://maven.apache.org</url>
 
 	<!-- <repositories> <repository> <id>spring.io</id> <name>spring.io</name> 

@@ -17,12 +17,11 @@
 
 	<!-- 加载配置文件 -->
 	<bean id="propertyConfigurer"
-		class="com.fenlonsky.campaign.web.utils.CustomizedPropertyPlaceholderConfigurer">
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 		<property name="locations">
 			<list>
 				<value>/WEB-INF/config/db/jdbc.properties</value>
-				<value>classpath:config/config.properties</value>
 			</list>
 		</property>
 	</bean>
