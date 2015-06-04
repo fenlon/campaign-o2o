@@ -11,7 +11,7 @@ indexModule.controller("indexController", [
 			$scope.codeUrl = ctx + "/qrcode/get.html?content=''";
 
 			$scope.qrcode = {
-				content : "",
+				content : "finish",
 				errorLevel : 'H',
 				size : 300,
 				foregroundColor : 0,
@@ -44,6 +44,7 @@ indexModule.controller("indexController", [
 
 			$scope.downloadCode = function() {
 				$scope.generateCode($scope.qrcode.content);
+				return $scope.codeUrl;
 				var url = ctx + "/qrcode/d_load.html";
 				// $scope.qrcode.errorLevel = 2;
 				$http.get(url, {
