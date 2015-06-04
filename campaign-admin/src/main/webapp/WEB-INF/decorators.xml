@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/decorators">
+	<decorator name="default" page="main.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+
+	<excludes>
+		<pattern>/resources/*</pattern>
+		<pattern>/login/*</pattern>
+		<pattern>/authcode/**</pattern>
+		<pattern>/user_info/base_info.htm</pattern>
+		<pattern>/user_info/store.htm</pattern>
+		<pattern>/user_info/message.htm</pattern>
+		<pattern>/user_info/campaign.htm</pattern>
+		<pattern>/user_info/campaign/detail.htm</pattern>
+		<pattern>/store/mobile/**</pattern>
+		<pattern>/store_campaign/mobile/**</pattern>
+		<pattern>/store_operator/mobile/**</pattern>
+	</excludes>
+</decorators>
